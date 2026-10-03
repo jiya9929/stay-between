@@ -1,0 +1,453 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<meta name="format-detection" content="telephone=no">
+<title></title>
+
+<script>
+/* ================================================================
+   ================================================================
+   ===                                                          ===
+   ===                    여기만 고치세요                       ===
+   ===                                                          ===
+   ================================================================
+   ================================================================
+
+   고치는 규칙
+   - 따옴표 " " 안의 글자만 바꾸세요
+   - 줄 끝의 쉼표(,)와 따옴표는 지우지 마세요
+   - 숫자 항목(인원, 침실, 욕실)은 따옴표 없이 숫자만 씁니다
+   - 저장해서 GitHub에 다시 올리면 1, 2분 뒤 앱에 반영됩니다
+   ================================================================ */
+
+const CONFIG = {
+
+  /* ---------- 숙소 기본 정보 ---------- */
+  stayName: "스테이 비트윈 (Stay Between)", // 숙소 이름. 첫 화면 제목과 휴대폰 탭 이름에 나옵니다
+  tagline: "DDP 근처, 6인이 머무는 한국적 감성의 조용한 집", // 한 줄 소개. 첫 화면 숙소 이름 바로 아래에 나옵니다
+  maxGuests: 6, // 최대 인원. 첫 화면 숙소 정보 줄에 나옵니다
+  bedrooms: 3, // 침실 수. 첫 화면 숙소 정보 줄에 나옵니다
+  bathrooms: 1, // 욕실 수. 첫 화면 숙소 정보 줄에 나옵니다
+  photo: "img/main.jpg", // 첫 화면 사진. img 폴더에 main.jpg 이름으로 사진을 넣으세요. 사진이 없으면 빈 칸으로 보입니다 [샘플입니다. 바꿔 주세요]
+
+  /* ---------- 체크인 ---------- */
+  checkinTime: "16:00", // 체크인 시각. 이 값을 바꾸면 체크인 화면에 반영됩니다
+  checkoutTime: "11:00", // 체크아웃 시각. 이 값을 바꾸면 체크인 화면에 반영됩니다
+  address: "서울 중구 퇴계로52길 23, 101호", // 화면에 보이는 주소이자 "주소 복사"를 누르면 복사되는 주소
+  mapAddress: "서울 중구 퇴계로52길 23", // 지도 앱에서 검색할 주소. 호수 없이 건물 주소까지만 씁니다
+  doorGuide: "현관 도어락 화면을 손바닥으로 터치해 켠 뒤, 체크인 당일 에어비앤비 메시지로 받은 비밀번호를 누르고 * 를 누르세요.", // 현관 여는 법. 실제 비밀번호는 여기에 절대 쓰지 마세요
+
+  /* 지도 버튼. type은 naver, kakao, google 중 하나입니다. 버튼을 빼고 싶으면 그 줄을 통째로 지우세요 */
+  maps: [
+    { type: "naver",  label: "네이버 지도로 열기" }, // 네이버 지도 앱이나 웹이 열립니다
+    { type: "kakao",  label: "카카오맵으로 열기" },  // 카카오맵 앱이나 웹이 열립니다
+    { type: "google", label: "구글 지도로 열기" }    // 구글 지도가 열립니다. 외국인 게스트용
+  ],
+
+  /* ---------- 와이파이 ---------- */
+  wifiName: "SK_20B0_5G", // 와이파이 이름. 와이파이 화면에 나옵니다
+  wifiPassword: "stay12345", // 와이파이 비밀번호. "비밀번호 복사"를 누르면 이 값이 복사됩니다 [샘플입니다. 바꿔 주세요]
+  wifiQrGuide: "거실 식탁 옆 장식장에 있는 QR코드 액자를 휴대폰 카메라로 비추면 비밀번호 없이 바로 연결됩니다.", // QR코드 안내 문구. 와이파이 화면 맨 아래에 나옵니다
+
+  /* ---------- 연락하기 ---------- */
+  hostName: "Kavin과 JY", // 호스트 이름. 연락하기 화면에 나옵니다
+  contactGuide: "궁금한 점이나 불편한 점은 언제든 에어비앤비 메시지로 남겨 주세요. 확인하는 대로 답장 드립니다.", // 연락하기 화면의 안내 문구
+  contactUrl: "https://www.airbnb.co.kr/guest/messages", // 연락 버튼을 누르면 열리는 주소. 지금은 에어비앤비 메시지함입니다
+
+  /* ---------- 색 ---------- */
+  accentColor: "#2F4858", // 강조색. 버튼, 제목 포인트 색이 한 번에 바뀝니다. # 뒤 여섯 자리 색상 코드로 씁니다
+
+  /* ---------- 메뉴 버튼 ---------- */
+  /* id는 고치지 마세요. label과 sub만 바꾸시면 됩니다 */
+  menu: [
+    { id: "checkin", label: "체크인",   sub: "주소와 현관 여는 법" }, // 체크인 화면으로 가는 버튼 글자
+    { id: "wifi",    label: "와이파이", sub: "이름과 비밀번호" },     // 와이파이 화면으로 가는 버튼 글자
+    { id: "contact", label: "연락하기", sub: "호스트에게 메시지" }    // 연락하기 화면으로 가는 버튼 글자
+  ],
+
+  /* ---------- 화면 곳곳의 작은 글자 ---------- */
+  /* {guests} {bedrooms} {bathrooms} 는 위의 숫자로 자동으로 바뀝니다. 중괄호 부분은 지우지 마세요 */
+  text: {
+    roomInfo: "최대 {guests}인 / 침실 {bedrooms}개 / 욕실 {bathrooms}개", // 첫 화면 숙소 정보 줄
+    menuHeading: "안내", // 첫 화면 메뉴 버튼 위 작은 제목
+    back: "메뉴로 돌아가기", // 각 화면의 돌아가기 버튼 글자
+
+    checkinTitle: "체크인", // 체크인 화면 제목
+    checkinTimeLabel: "체크인", // 체크인 시각 앞에 붙는 글자
+    checkoutTimeLabel: "체크아웃", // 체크아웃 시각 앞에 붙는 글자
+    addressLabel: "주소", // 주소 칸 제목
+    copyAddress: "주소 복사", // 주소 복사 버튼 글자
+    doorLabel: "현관 여는 법", // 현관 안내 칸 제목
+
+    wifiTitle: "와이파이", // 와이파이 화면 제목
+    wifiNameLabel: "와이파이 이름", // 와이파이 이름 칸 제목
+    wifiPasswordLabel: "비밀번호", // 비밀번호 칸 제목
+    copyPassword: "비밀번호 복사", // 비밀번호 복사 버튼 글자
+    wifiQrLabel: "QR코드로 연결", // QR 안내 칸 제목
+
+    contactTitle: "연락하기", // 연락하기 화면 제목
+    hostLabel: "호스트", // 호스트 이름 칸 제목
+    contactButton: "에어비앤비 메시지 열기", // 연락 버튼 글자
+    contactNote: "에어비앤비 앱이 열립니다. 앱이 없으면 웹사이트가 열립니다.", // 연락 버튼 아래 작은 안내
+
+    copied: "복사되었습니다", // 복사 성공 시 화면 아래에 잠깐 뜨는 글자
+    copyFailed: "복사가 되지 않았습니다. 글자를 길게 눌러 직접 복사해 주세요." // 복사 실패 시 뜨는 글자
+  }
+};
+
+/* ================================================================
+   ================================================================
+   ===                                                          ===
+   ===           여기부터는 고치지 않으셔도 됩니다              ===
+   ===                                                          ===
+   ================================================================
+   ================================================================ */
+</script>
+
+<style>
+  :root {
+    --accent: #2F4858;
+    --text: #222222;
+    --line: #ebebeb;
+    --soft: #f5f6f7;
+    --shadow: 0 1px 4px rgba(0, 0, 0, 0.06);
+  }
+  * { box-sizing: border-box; margin: 0; padding: 0; }
+  html { -webkit-text-size-adjust: 100%; }
+  body {
+    background: #ffffff;
+    color: var(--text);
+    font-family: -apple-system, BlinkMacSystemFont, "Apple SD Gothic Neo", "Malgun Gothic", "Noto Sans KR", "Segoe UI", Roboto, sans-serif;
+    font-size: 17px;
+    line-height: 1.6;
+    word-break: keep-all;
+    overflow-wrap: break-word;
+  }
+  .wrap {
+    max-width: 480px;
+    margin: 0 auto;
+    padding: 20px 16px calc(36px + env(safe-area-inset-bottom));
+  }
+
+  /* 첫 화면 */
+  .photo {
+    width: 100%;
+    aspect-ratio: 4 / 3;
+    border-radius: 14px;
+    overflow: hidden;
+    background: var(--soft);
+    margin-bottom: 20px;
+  }
+  .photo img { width: 100%; height: 100%; object-fit: cover; display: block; }
+  .stay-name { font-size: 26px; line-height: 1.35; font-weight: 700; margin-bottom: 8px; }
+  .tagline { font-size: 18px; margin-bottom: 6px; }
+  .room-info { font-size: 16px; color: var(--accent); font-weight: 600; margin-bottom: 28px; }
+  .section-heading { font-size: 16px; font-weight: 700; color: var(--accent); margin-bottom: 12px; }
+
+  /* 메뉴 */
+  .menu-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 12px; }
+  .menu-grid a:last-child:nth-child(odd) { grid-column: 1 / -1; }
+  .menu-item {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    min-height: 108px;
+    padding: 18px 16px;
+    border: 1px solid var(--line);
+    border-radius: 14px;
+    background: #ffffff;
+    box-shadow: var(--shadow);
+    color: var(--text);
+    text-decoration: none;
+  }
+  .menu-item:active { background: var(--soft); }
+  .menu-label { font-size: 19px; font-weight: 700; color: var(--accent); }
+  .menu-sub { font-size: 16px; margin-top: 4px; }
+
+  /* 상세 화면 */
+  .top-back { margin-bottom: 16px; }
+  .screen-title { font-size: 26px; font-weight: 700; margin-bottom: 18px; }
+  .card {
+    border: 1px solid var(--line);
+    border-radius: 14px;
+    background: #ffffff;
+    box-shadow: var(--shadow);
+    padding: 18px 16px;
+    margin-bottom: 14px;
+  }
+  .card-label { font-size: 16px; font-weight: 700; color: var(--accent); margin-bottom: 6px; }
+  .card-value { font-size: 20px; font-weight: 600; margin-bottom: 4px; }
+  .card-text { font-size: 17px; }
+  .card-note { font-size: 16px; margin-top: 10px; }
+  .time-row { display: grid; grid-template-columns: 1fr 1fr; gap: 12px; }
+  .time-value { font-size: 26px; font-weight: 700; }
+  .btn-stack { display: grid; gap: 10px; margin-top: 14px; }
+
+  /* 버튼 */
+  .btn {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    width: 100%;
+    min-height: 52px;
+    padding: 12px 16px;
+    border-radius: 8px;
+    font-family: inherit;
+    font-size: 17px;
+    font-weight: 600;
+    line-height: 1.4;
+    text-align: center;
+    text-decoration: none;
+    cursor: pointer;
+    -webkit-tap-highlight-color: transparent;
+  }
+  .btn-primary { background: var(--accent); color: #ffffff; border: 1px solid var(--accent); }
+  .btn-line { background: #ffffff; color: var(--accent); border: 1px solid var(--accent); }
+  .btn-plain {
+    display: inline-flex;
+    width: auto;
+    min-height: 48px;
+    padding: 10px 0;
+    background: none;
+    border: none;
+    color: var(--accent);
+  }
+  .btn:active { opacity: 0.85; }
+  .bottom-back { margin-top: 22px; }
+  a:focus-visible, button:focus-visible { outline: 3px solid var(--accent); outline-offset: 2px; }
+
+  /* 복사 알림 */
+  .toast {
+    position: fixed;
+    left: 50%;
+    bottom: calc(24px + env(safe-area-inset-bottom));
+    transform: translate(-50%, 20px);
+    max-width: calc(100% - 32px);
+    padding: 12px 18px;
+    border-radius: 8px;
+    background: #222222;
+    color: #ffffff;
+    font-size: 16px;
+    text-align: center;
+    opacity: 0;
+    pointer-events: none;
+    transition: opacity 0.2s, transform 0.2s;
+    z-index: 10;
+  }
+  .toast.show { opacity: 1; transform: translate(-50%, 0); }
+</style>
+</head>
+<body>
+<div id="app" class="wrap"></div>
+<div id="toast" class="toast" role="status" aria-live="polite"></div>
+
+<script>
+(function () {
+  var C = CONFIG;
+  var T = C.text || {};
+  var app = document.getElementById("app");
+  var toastBox = document.getElementById("toast");
+  var toastTimer = null;
+
+  document.title = C.stayName || "";
+  if (C.accentColor) {
+    document.documentElement.style.setProperty("--accent", C.accentColor);
+  }
+
+  /* 작은 도구들 */
+  function el(tag, cls, txt) {
+    var e = document.createElement(tag);
+    if (cls) e.className = cls;
+    if (txt !== undefined && txt !== null) e.textContent = txt;
+    return e;
+  }
+  function add(parent, child) { parent.appendChild(child); return child; }
+
+  function showToast(msg) {
+    toastBox.textContent = msg;
+    toastBox.classList.add("show");
+    clearTimeout(toastTimer);
+    toastTimer = setTimeout(function () { toastBox.classList.remove("show"); }, 2200);
+  }
+
+  function copyText(text) {
+    function fallback() {
+      var ta = document.createElement("textarea");
+      ta.value = text;
+      ta.setAttribute("readonly", "");
+      ta.style.position = "fixed";
+      ta.style.top = "-1000px";
+      document.body.appendChild(ta);
+      ta.select();
+      ta.setSelectionRange(0, text.length);
+      var ok = false;
+      try { ok = document.execCommand("copy"); } catch (e) { ok = false; }
+      document.body.removeChild(ta);
+      showToast(ok ? T.copied : T.copyFailed);
+    }
+    if (navigator.clipboard && window.isSecureContext) {
+      navigator.clipboard.writeText(text).then(function () { showToast(T.copied); }, fallback);
+    } else {
+      fallback();
+    }
+  }
+
+  function mapUrl(type, address) {
+    var q = encodeURIComponent(address);
+    if (type === "naver") return "https://map.naver.com/p/search/" + q;
+    if (type === "kakao") return "https://map.kakao.com/link/search/" + q;
+    if (type === "google") return "https://www.google.com/maps/search/?api=1&query=" + q;
+    return null;
+  }
+
+  function linkButton(label, href, style) {
+    var a = el("a", "btn " + style, label);
+    a.href = href;
+    return a;
+  }
+
+  function copyButton(label, value, style) {
+    var b = el("button", "btn " + style, label);
+    b.type = "button";
+    b.addEventListener("click", function () { copyText(String(value)); });
+    return b;
+  }
+
+  function backButtonTop() {
+    var a = el("a", "btn btn-plain top-back", T.back);
+    a.href = "#home";
+    return a;
+  }
+  function backButtonBottom() {
+    var a = el("a", "btn btn-line bottom-back", T.back);
+    a.href = "#home";
+    return a;
+  }
+
+  function card(label) {
+    var c = el("div", "card");
+    if (label) add(c, el("div", "card-label", label));
+    return c;
+  }
+
+  /* 첫 화면 + 메뉴 */
+  function renderHome() {
+    var photoBox = add(app, el("div", "photo"));
+    if (C.photo) {
+      var img = el("img");
+      img.alt = "";
+      img.onerror = function () { if (img.parentNode) img.parentNode.removeChild(img); };
+      img.src = C.photo;
+      add(photoBox, img);
+    }
+
+    add(app, el("h1", "stay-name", C.stayName));
+    if (C.tagline) add(app, el("p", "tagline", C.tagline));
+    if (T.roomInfo) {
+      var info = T.roomInfo
+        .replace("{guests}", C.maxGuests)
+        .replace("{bedrooms}", C.bedrooms)
+        .replace("{bathrooms}", C.bathrooms);
+      add(app, el("p", "room-info", info));
+    }
+
+    if (T.menuHeading) add(app, el("h2", "section-heading", T.menuHeading));
+    var grid = add(app, el("nav", "menu-grid"));
+    (C.menu || []).forEach(function (m) {
+      if (!screens[m.id]) return;
+      var a = el("a", "menu-item");
+      a.href = "#" + m.id;
+      add(a, el("span", "menu-label", m.label));
+      if (m.sub) add(a, el("span", "menu-sub", m.sub));
+      add(grid, a);
+    });
+  }
+
+  /* 체크인 */
+  function renderCheckin() {
+    add(app, backButtonTop());
+    add(app, el("h1", "screen-title", T.checkinTitle));
+
+    var timeCard = add(app, el("div", "card time-row"));
+    var t1 = add(timeCard, el("div"));
+    add(t1, el("div", "card-label", T.checkinTimeLabel));
+    add(t1, el("div", "time-value", C.checkinTime));
+    var t2 = add(timeCard, el("div"));
+    add(t2, el("div", "card-label", T.checkoutTimeLabel));
+    add(t2, el("div", "time-value", C.checkoutTime));
+
+    var addrCard = add(app, card(T.addressLabel));
+    add(addrCard, el("div", "card-value", C.address));
+    var stack = add(addrCard, el("div", "btn-stack"));
+    add(stack, copyButton(T.copyAddress, C.address, "btn-line"));
+    (C.maps || []).forEach(function (m) {
+      var url = mapUrl(m.type, C.mapAddress || C.address);
+      if (url) add(stack, linkButton(m.label, url, "btn-primary"));
+    });
+
+    var doorCard = add(app, card(T.doorLabel));
+    add(doorCard, el("p", "card-text", C.doorGuide));
+
+    add(app, backButtonBottom());
+  }
+
+  /* 와이파이 */
+  function renderWifi() {
+    add(app, backButtonTop());
+    add(app, el("h1", "screen-title", T.wifiTitle));
+
+    var nameCard = add(app, card(T.wifiNameLabel));
+    add(nameCard, el("div", "card-value", C.wifiName));
+
+    var pwCard = add(app, card(T.wifiPasswordLabel));
+    add(pwCard, el("div", "card-value", C.wifiPassword));
+    var stack = add(pwCard, el("div", "btn-stack"));
+    add(stack, copyButton(T.copyPassword, C.wifiPassword, "btn-primary"));
+
+    if (C.wifiQrGuide) {
+      var qrCard = add(app, card(T.wifiQrLabel));
+      add(qrCard, el("p", "card-text", C.wifiQrGuide));
+    }
+
+    add(app, backButtonBottom());
+  }
+
+  /* 연락하기 */
+  function renderContact() {
+    add(app, backButtonTop());
+    add(app, el("h1", "screen-title", T.contactTitle));
+
+    var hostCard = add(app, card(T.hostLabel));
+    add(hostCard, el("div", "card-value", C.hostName));
+    if (C.contactGuide) add(hostCard, el("p", "card-text", C.contactGuide));
+    var stack = add(hostCard, el("div", "btn-stack"));
+    add(stack, linkButton(T.contactButton, C.contactUrl, "btn-primary"));
+    if (T.contactNote) add(hostCard, el("p", "card-note", T.contactNote));
+
+    add(app, backButtonBottom());
+  }
+
+  /* 화면 전환 */
+  var screens = {
+    home: renderHome,
+    checkin: renderCheckin,
+    wifi: renderWifi,
+    contact: renderContact
+  };
+
+  function route() {
+    var id = (location.hash || "").replace("#", "");
+    var draw = screens[id] || renderHome;
+    app.innerHTML = "";
+    draw();
+    window.scrollTo(0, 0);
+  }
+
+  window.addEventListener("hashchange", route);
+  route();
+})();
+</script>
+</body>
+</html>
