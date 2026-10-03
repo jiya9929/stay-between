@@ -1,0 +1,1031 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<meta name="format-detection" content="telephone=no">
+<title></title>
+
+<script>
+/* ================================================================
+   ================================================================
+   ===                                                          ===
+   ===                    여기만 고치세요                       ===
+   ===                                                          ===
+   ================================================================
+   ================================================================
+
+   고치는 규칙
+   - 따옴표 " " 안의 글자만 바꾸세요
+   - 줄 끝의 쉼표(,)와 따옴표, 괄호 { } [ ] 는 지우지 마세요
+   - 숫자 항목(인원, 침실, 욕실, start)은 따옴표 없이 숫자만 씁니다
+   - 글자 안에서 \n 은 "여기서 줄을 바꿉니다"라는 뜻입니다
+   - 사진은 img 폴더에 아래 적힌 이름으로 넣으면 나타납니다.
+     사진이 없으면 그 자리만 조용히 사라지고 나머지는 그대로 보입니다
+   - 저장해서 GitHub에 다시 올리면 1, 2분 뒤 앱에 반영됩니다
+   ================================================================ */
+
+const CONFIG = {
+
+  /* ================= 1. 숙소 기본 정보 ================= */
+  stayName: "스테이 비트윈 (Stay Between)", // 숙소 이름. 첫 화면 제목과 휴대폰 탭 이름에 나옵니다
+  tagline: "DDP 근처, 6인이 머무는 한국적 감성의 조용한 집", // 한 줄 소개. 첫 화면 숙소 이름 바로 아래에 나옵니다
+  maxGuests: 6, // 최대 인원. 첫 화면 숙소 정보 줄에 나옵니다
+  bedrooms: 3, // 침실 수. 첫 화면 숙소 정보 줄에 나옵니다
+  bathrooms: 1, // 욕실 수. 첫 화면 숙소 정보 줄에 나옵니다
+  photo: "img/main.jpg", // 첫 화면 사진. img 폴더에 main.jpg 이름으로 넣으세요 [샘플입니다. 바꿔 주세요]
+
+  /* ================= 2. 체크인 ================= */
+  checkinTime: "16:00", // 체크인 시각. 체크인 화면 큰 숫자에 나옵니다
+  checkoutTime: "11:00", // 체크아웃 시각. 체크인 화면 큰 숫자에 나옵니다
+  address: "서울 중구 퇴계로52길 23, 101호", // 화면에 보이는 주소이자 "주소 복사"를 누르면 복사되는 주소
+  addressNote: "택시 기사님께는 이 한글 주소를 그대로 보여 주세요.", // 주소 아래 작은 안내 문장
+  mapAddress: "서울 중구 퇴계로52길 23", // 지도 앱에서 검색할 주소. 호수 없이 건물 주소까지만 씁니다
+
+  /* 지도 버튼. type은 naver, kakao, google 중 하나입니다. 버튼을 빼고 싶으면 그 줄을 통째로 지우세요 */
+  maps: [
+    { type: "naver",  label: "네이버 지도로 열기" }, // 네이버 지도 앱이나 웹이 열립니다
+    { type: "kakao",  label: "카카오맵으로 열기" },  // 카카오맵 앱이나 웹이 열립니다
+    { type: "google", label: "구글 지도로 열기" }    // 구글 지도가 열립니다. 도보 길찾기는 안 됩니다
+  ],
+
+  /* ================= 3. 와이파이 ================= */
+  wifiName: "SK_20B0_5G", // 와이파이 이름. 와이파이 화면에 나옵니다
+  wifiPassword: "stay12345", // 와이파이 비밀번호. "비밀번호 복사"를 누르면 이 값이 복사됩니다 [샘플입니다. 바꿔 주세요]
+  wifiQrGuide: "거실 식탁 옆 장식장에 있는 QR코드 액자를 휴대폰 카메라로 비추면 비밀번호 없이 바로 연결됩니다.", // QR코드 안내 문구
+
+  /* ================= 4. 호스트 연락 ================= */
+  hostName: "Kavin과 JY", // 호스트 이름. 연락하기 화면에 나옵니다
+  contactGuide: "이 안내에 없는 것도 물어봐 주세요. 아는 만큼 알려 드리겠습니다.", // 연락하기 화면의 안내 문구
+  contactUrl: "https://www.airbnb.co.kr/guest/messages", // 연락 버튼을 누르면 열리는 주소. 지금은 에어비앤비 메시지함입니다
+
+  /* ================= 5. 택시 (우버) ================= */
+  uberNickname: "Stay Between", // 우버 앱 목적지 칸에 보이는 숙소 이름
+  uberAddress: "서울 중구 퇴계로52길 23", // 우버에 넘기는 숙소 주소. 호수 없이 건물 주소까지만 씁니다
+  stayLatitude: "37.562312", // 숙소 위도. 우버 앱에 숙소 위치를 정확히 찍는 데 씁니다
+  stayLongitude: "127.004062", // 숙소 경도. 위도와 함께 씁니다
+
+  /* ================= 6. 색 ================= */
+  accentColor: "#2F4858", // 강조색. 버튼, 제목 포인트, 번호 동그라미 색이 한 번에 바뀝니다
+
+  /* ================= 7. 화면 곳곳의 작은 글자 ================= */
+  /* {guests} {bedrooms} {bathrooms} {number} 는 자동으로 바뀌는 자리입니다. 중괄호 부분은 지우지 마세요 */
+  text: {
+    roomInfo: "최대 {guests}인 / 침실 {bedrooms}개 / 욕실 {bathrooms}개", // 첫 화면 숙소 정보 줄
+    menuHeading: "안내", // 첫 화면 메뉴 버튼 위 작은 제목
+    back: "메뉴로 돌아가기", // 각 화면의 돌아가기 버튼 글자
+    checkinTimeLabel: "들어오실 때", // 체크인 시각 위 작은 글자
+    checkoutTimeLabel: "나가실 때", // 체크아웃 시각 위 작은 글자
+    checkinTimeSuffix: "부터", // 체크인 시각 뒤에 붙는 글자
+    checkoutTimeSuffix: "까지", // 체크아웃 시각 뒤에 붙는 글자
+    addressLabel: "주소", // 주소 칸 제목
+    copyAddress: "주소 복사", // 주소 복사 버튼 글자
+    wifiNameLabel: "와이파이 이름", // 와이파이 이름 칸 제목
+    wifiPasswordLabel: "비밀번호", // 비밀번호 칸 제목
+    copyPassword: "비밀번호 복사", // 비밀번호 복사 버튼 글자
+    wifiQrLabel: "QR코드로 연결", // QR 안내 칸 제목
+    hostLabel: "호스트", // 호스트 이름 칸 제목
+    contactButton: "에어비앤비 메시지 열기", // 연락 버튼 글자
+    contactNote: "에어비앤비 앱이 열립니다. 앱이 없으면 웹사이트가 열립니다.", // 연락 버튼 아래 작은 안내
+    callButton: "{number}에 전화하기", // 긴급 번호 전화 버튼 글자
+    uberToStayLabel: "숙소로 올 때", // 첫 번째 우버 칸 제목
+    uberToStayNote: "지금 계신 곳에서 숙소까지 가는 우버를 부릅니다. 목적지가 숙소로 채워진 채 우버 앱이 열립니다.", // 첫 번째 우버 칸 설명
+    uberToStayButton: "숙소로 가는 우버 부르기", // 첫 번째 우버 버튼 글자
+    uberFromStayLabel: "숙소에서 나갈 때", // 두 번째 우버 칸 제목
+    uberFromStayNote: "출발지가 숙소로 채워진 채 우버 앱이 열립니다. 가실 곳만 입력하시면 됩니다.", // 두 번째 우버 칸 설명
+    uberFromStayButton: "숙소에서 출발하는 우버 부르기", // 두 번째 우버 버튼 글자
+    copied: "복사되었습니다", // 복사 성공 시 화면 아래에 잠깐 뜨는 글자
+    copyFailed: "복사가 되지 않았습니다. 글자를 길게 눌러 직접 복사해 주세요." // 복사 실패 시 뜨는 글자
+  },
+
+  /* ================= 8. 메뉴와 각 화면 내용 =================
+     화면 하나가 { } 한 덩어리입니다. 적힌 순서대로 첫 화면 메뉴 버튼이 놓입니다.
+     - id     : 화면 이름표. 고치지 마세요 (급할 때 화면의 연결에 쓰입니다)
+     - label  : 메뉴 버튼 큰 글자
+     - sub    : 메뉴 버튼 작은 글자
+     - title  : 화면 맨 위 제목
+     - intro  : 제목 아래 소개 문장
+     - blocks : 화면 안의 내용 조각들. 위에서부터 순서대로 보입니다
+
+     내용 조각(type) 종류
+     - section : 소제목. title(제목), sub(작은 영문 표기), text(설명)
+     - rows    : 항목과 설명 목록. heading(묶음 제목), rows: [ ["항목", "설명"], ... ]
+     - steps   : 번호 붙은 순서. heading, start(시작 번호, 없으면 1), items: [ { title, text } ]
+     - note    : 색 배경의 강조 상자. title(굵은 글자), text(설명)
+     - image   : 사진. src(파일 위치), caption(사진 설명)
+     - links   : 다른 화면으로 가는 버튼 목록. items: [ { label, sub, to(화면 id) } ]
+     - calls   : 전화 버튼 목록. heading, items: [ { label, number, note } ]
+     - uber    : 우버 호출 버튼 두 개. 위 5번 정보를 씁니다
+     - times, address, wifi, host : 위 1~4번 정보를 자동으로 보여 주는 조각. 고칠 것 없습니다
+     ============================================================ */
+  screens: [
+
+    /* ---------- 체크인 ---------- */
+    {
+      id: "checkin",
+      label: "체크인", // 메뉴 버튼 글자
+      sub: "주소와 현관 여는 법", // 메뉴 버튼 작은 글자
+      title: "체크인과 체크아웃", // 화면 제목
+      intro: "따로 만나지 않아도 됩니다.", // 화면 소개
+      blocks: [
+        { type: "times" }, // 체크인, 체크아웃 시각 (위 2번에서 바꿉니다)
+        { type: "address" }, // 주소, 주소 복사, 지도 버튼 (위 2번에서 바꿉니다)
+        { type: "steps", heading: "들어오실 때", items: [ // 입실 순서. 실제 현관 비밀번호는 절대 쓰지 마세요
+          { title: "비밀번호를 확인하세요", text: "도착 1시간 전에 에어비앤비 메시지로 보내 드립니다." },
+          { title: "도어록에 입력합니다", text: "현관 터치판을 한 번 눌러 숫자가 나타나면, 받으신 4자리 비밀번호를 누르고 ★를 누릅니다." },
+          { title: "신발은 현관에서", text: "실내는 맨발이나 슬리퍼로 지내 주세요. 슬리퍼는 현관 옆 벽에 세워져 있습니다." }
+        ]},
+        { type: "steps", heading: "나가실 때", items: [ // 퇴실 순서
+          { title: "사용한 그릇을 설거지", text: "완벽하지 않아도 괜찮습니다." },
+          { title: "사용한 침구를 한곳에", text: "침대 위나 세탁실 앞이면 충분합니다." },
+          { title: "쓰레기를 정리", text: "버리는 방법은 쓰레기 화면에 있습니다." },
+          { title: "퇴실 후 메시지 한 줄", text: "에어비앤비 메시지로 짧게 남겨 주시면 됩니다." }
+        ]},
+        { type: "note", title: "쓰레기는 저녁 7시부터 자정 사이에만 내놓을 수 있고, 일요일에는 배출하지 않습니다.", text: "아침에 퇴실하시는 경우 실내 분리수거함과 봉투에 정리만 해 두시면 저희가 처리합니다." } // 강조 상자
+      ]
+    },
+
+    /* ---------- 와이파이 ---------- */
+    {
+      id: "wifi",
+      label: "와이파이", // 메뉴 버튼 글자
+      sub: "이름과 비밀번호", // 메뉴 버튼 작은 글자
+      title: "와이파이", // 화면 제목
+      intro: "", // 화면 소개. 비워 두면 안 보입니다
+      blocks: [
+        { type: "wifi" } // 와이파이 이름, 비밀번호, QR 안내 (위 3번에서 바꿉니다)
+      ]
+    },
+
+    /* ---------- 택시 ---------- */
+    {
+      id: "taxi",
+      label: "택시 부르기", // 메뉴 버튼 글자
+      sub: "우버로 바로 호출", // 메뉴 버튼 작은 글자
+      title: "택시 부르기", // 화면 제목
+      intro: "버튼을 누르면 우버 앱이 열립니다. 앱이 없으면 설치 화면이 열립니다.", // 화면 소개
+      blocks: [
+        { type: "uber" }, // 우버 호출 버튼 두 개 (위 5번에서 바꿉니다)
+        { type: "note", title: "우버 앱에 결제 카드를 미리 등록해 두시면 편합니다.", text: "한국에서는 우버 택시로 일반 택시가 배차됩니다. 기사님이 길을 헷갈려 하시면 아래 한글 주소를 보여 주세요." },
+        { type: "address" }, // 주소, 주소 복사, 지도 버튼 (위 2번에서 바꿉니다)
+        { type: "rows", heading: "공항에서", rows: [
+          ["인천공항", "공항버스 6702번 또는 공항철도 환승. 택시는 1시간 이상 걸릴 수 있습니다."],
+          ["김포공항", "5호선으로 동대문역사문화공원역까지 환승 없이 오실 수 있습니다."]
+        ]}
+      ]
+    },
+
+    /* ---------- 급할 때 ---------- */
+    {
+      id: "quick",
+      label: "급할 때", // 메뉴 버튼 글자
+      sub: "필요한 것만 바로 찾기", // 메뉴 버튼 작은 글자
+      title: "급할 때", // 화면 제목
+      intro: "필요한 것만 골라 누르세요. 급한 일이면 먼저 메시지 주세요. 안내를 뒤지는 것보다 메시지 한 줄이 빠릅니다.", // 화면 소개
+      blocks: [
+        { type: "links", items: [ // label은 상황, sub는 설명, to는 이동할 화면 id
+          { label: "바닥이 차가워요", sub: "보일러 난방 온도 올리기", to: "temperature" },
+          { label: "물이 미지근해요", sub: "보일러 온수 단계 올리기", to: "temperature" },
+          { label: "더워요", sub: "에어컨 리모컨 버튼 안내", to: "temperature" },
+          { label: "비데를 쓰고 싶어요", sub: "버튼 하나하나 설명", to: "bathroom" },
+          { label: "세탁기를 돌리고 싶어요", sub: "전원, 코스, 시작", to: "laundry" },
+          { label: "빨래를 말리고 싶어요", sub: "건조기는 위쪽 기기입니다", to: "laundry" },
+          { label: "쓰레기는 어떻게 버리나요", sub: "봉투 색으로 구분합니다", to: "waste" },
+          { label: "TV에서 넷플릭스를 보고 싶어요", sub: "스탠바이미 리모컨 전용 버튼", to: "kitchen" },
+          { label: "옷이 구겨졌어요", sub: "핸디 스팀다리미", to: "kitchen" },
+          { label: "물건이 어디 있나요", sub: "슬리퍼, 수건, 드라이어 위치", to: "where" },
+          { label: "택시를 부르고 싶어요", sub: "우버로 바로 호출", to: "taxi" },
+          { label: "퇴실 전에 뭘 하면 되나요", sub: "체크아웃 순서", to: "checkin" },
+          { label: "그 밖의 모든 것", sub: "호스트에게 메시지", to: "contact" }
+        ]}
+      ]
+    },
+
+    /* ---------- 집 안내 ---------- */
+    {
+      id: "house",
+      label: "집 안내", // 메뉴 버튼 글자
+      sub: "방 배치와 지내는 약속", // 메뉴 버튼 작은 글자
+      title: "집에 대하여", // 화면 제목
+      intro: "3층 건물의 1층에 있습니다. 방 셋과 욕실 하나, 식탁 공간, 한국식 마루(평상), 부엌이 있습니다.", // 화면 소개
+      blocks: [
+        { type: "rows", heading: "기본 정보", rows: [
+          ["공간", "집 전체 사용 · 최대 6인 · 침실 3 · 침대 4 (퀸 2, 슈퍼싱글 2) · 욕실 1"],
+          ["층수", "3층 건물의 1층입니다. 건물 입구에 계단 한 칸이 있어 짐이 많아도 이동이 수월합니다."],
+          ["난방", "온돌, 바닥이 따뜻해지는 방식입니다. 적정 온도는 24~25℃입니다."],
+          ["냉방", "거실과 침실 1, 2에 천장형 에어컨, 침실 3에 날개없는 선풍기가 있습니다."],
+          ["주차", "전용 주차 공간이 없습니다. 대중교통을 권해 드립니다."],
+          ["지하철", "동대문역사문화공원역 2 · 4 · 5호선, 도보 5~6분\n동대입구역 3호선, 도보 7분"],
+          ["공항에서", "인천: 공항버스 6702번 또는 공항철도 환승\n김포: 5호선으로 동대문역사문화공원역까지 환승 없이"]
+        ]},
+        { type: "note", title: "6인이 함께 쓰는 욕실은 하나입니다.", text: "아침 시간이 가장 붐빕니다. 일정이 있는 분부터 순서를 정해 두시면 서로 편합니다." },
+        { type: "section", title: "방 배치", text: "현관에서 들어오면 거실이 가운데 있고, 그 주위로 방 셋과 욕실이 있습니다." },
+        { type: "image", src: "img/floorplan.jpg", caption: "붉은 화살표가 현관입니다. Livingroom 거실 · Room 침실 · Kitchen 주방 · Restroom 욕실 · Wooden platform 평상 · Storage 창고" }, // 평면도 사진
+        { type: "rows", rows: [
+          ["거실", "6인 식탁 · 한국식 마루(평상) · LG 스탠바이미 · 시스템 에어컨"],
+          ["침실 1", "퀸 + 슈퍼싱글 · 최대 3인 · 에어컨 · 책상"],
+          ["침실 2", "퀸 · 최대 2인 · 에어컨 · 책상 · 전신거울"],
+          ["침실 3", "슈퍼싱글 · 1인 · 책상 · 날개없는 선풍기"],
+          ["주방", "인덕션 2구 · 전자레인지 · 냉장고 · 정수기 · 조리도구와 식기"],
+          ["욕실", "그린 타일 · 골드 수전 · 비데 · 샤워커튼 · 수납장"]
+        ]},
+        { type: "section", title: "지내는 동안", text: "편안한 머무름과 이웃과의 공존을 위한 약속입니다." },
+        { type: "rows", rows: [
+          ["금연", "실내 전체 금연입니다. 실내 흡연 시 즉시 퇴실 또는 청소비 10만 원이 부과됩니다."],
+          ["반려동물", "동반이 어렵습니다."],
+          ["소음", "이 골목의 집들은 모두 누군가의 생활 공간입니다. 1층이라 방음이 완전하지 않습니다. 저녁 시간 소음으로 이웃의 항의가 있을 경우 환불 없이 퇴실을 요청드릴 수 있습니다."],
+          ["중간 청소", "3박 이상 숙박 시 요청하시면 일정을 조율해 드립니다."],
+          ["짐 보관", "청소 시간(11:30부터 14:30까지) 동안 실내 보관이 가능합니다. 미리 말씀해 주셔야 합니다."],
+          ["시간 변경", "얼리 체크인과 레이트 체크아웃은 앞뒤 예약이 없을 때만 가능합니다. 사전 협의 없이 이용하시면 시간당 1만 원이 부과됩니다."]
+        ]},
+        { type: "note", title: "이 집은 신발을 벗고 지냅니다.", text: "현관에서 벗어 주시고, 실내는 맨발이나 슬리퍼로 지내 주세요. 겨울에는 바닥이 따뜻해서 맨발이 특히 좋습니다." }
+      ]
+    },
+
+    /* ---------- 냉난방 ---------- */
+    {
+      id: "temperature",
+      label: "냉난방", // 메뉴 버튼 글자
+      sub: "보일러 · 에어컨 · 선풍기", // 메뉴 버튼 작은 글자
+      title: "온도", // 화면 제목
+      intro: "겨울에는 바닥부터, 여름에는 천장부터. 난방은 보일러 하나로, 냉방은 방마다 따로 조절합니다.", // 화면 소개
+      blocks: [
+        { type: "section", title: "보일러", sub: "RINNAI WF-S100 · HEATING", text: "조작부는 화장실 맞은편 벽에 있습니다. 바닥을 데우는 온돌 난방과 샤워용 온수를 이것 하나로 조절합니다. 왼쪽이 난방, 오른쪽이 온수입니다." },
+        { type: "image", src: "img/boiler.jpg", caption: "보일러 조작부" }, // 보일러 사진
+        { type: "steps", items: [
+          { title: "오른쪽 위 전원", text: "전체 켜기, 끄기" },
+          { title: "왼쪽 집 모양과 위아래 화살표", text: "난방 온도" },
+          { title: "오른쪽 수도꼭지와 위아래 화살표", text: "온수 단계" },
+          { title: "자동 / 외출 / 예약", text: "운전 모드 선택" }
+        ]},
+        { type: "note", title: "적정 난방 온도는 24~25℃입니다.", text: "더 높이면 바닥이 뜨거워지기 전에 공기가 먼저 건조해져 답답해집니다. 외출하실 때는 끄지 말고 외출 모드로 두시는 편이 좋습니다." },
+        { type: "rows", rows: [
+          ["난방", "바닥이 데워지기까지 20~30분 정도 걸립니다."],
+          ["온수", "수도꼭지를 열고 잠시 기다리면 따뜻한 물이 나옵니다."],
+          ["외출 모드", "최소한의 온도만 유지합니다. 돌아오신 뒤 난방으로 돌리면 금방 따뜻해집니다."]
+        ]},
+
+        { type: "section", title: "시스템 에어컨", sub: "LG · COOLING", text: "거실과 침실 1, 2의 천장에 있습니다. 리모컨은 세 대 모두 같은 모델이라, 아래 버튼 안내가 모든 방에 그대로 적용됩니다." },
+        { type: "image", src: "img/aircon-remote.jpg", caption: "에어컨 리모컨. 번호는 아래 목록과 같습니다." }, // 에어컨 리모컨 사진
+        { type: "rows", rows: [
+          ["전원", "빨간 버튼으로 켜고 끕니다."],
+          ["온도", "18~30℃ 사이로 조절합니다."],
+          ["바람 세기", "1~5단계"]
+        ]},
+        { type: "steps", items: [
+          { title: "운전선택", text: "누를 때마다 냉방, 제습, 송풍 순서로 바뀝니다." },
+          { title: "상하바람", text: "바람 방향을 위아래로" },
+          { title: "좌우바람", text: "바람 방향을 좌우로" },
+          { title: "AI바람", text: "주변 환경에 맞춰 자동으로 운전합니다." },
+          { title: "파워바람", text: "더 차가운 바람으로 빠르게 시원하게" },
+          { title: "절전", text: "온도가 자동 조절되는 스마트 절전 운전" },
+          { title: "소프트바람", text: "바람이 직접 닿지 않도록 위로 보냅니다." },
+          { title: "취침", text: "수면 예약. 30분부터 12시간까지" },
+          { title: "켜짐", text: "켜짐 예약. 1시간부터 24시간까지" },
+          { title: "꺼짐", text: "꺼짐 예약. 1시간부터 24시간까지" }
+        ]},
+        { type: "note", title: "바람이 몸에 직접 닿는 게 불편하시면 소프트바람을 눌러 보세요.", text: "바람을 위쪽으로 보내 실내 공기를 순환시킵니다. 잘 때는 취침 예약이 편합니다." },
+
+        { type: "section", title: "날개없는 선풍기", sub: "ZAELEC", text: "침실 3에 있습니다. 날개가 없어 손이 들어가도 안전합니다. 조작은 본체 윗면의 원형 버튼으로 합니다." },
+        { type: "image", src: "img/fan-buttons.jpg", caption: "선풍기 버튼 배치. 번호는 아래 목록과 같습니다." }, // 선풍기 버튼 사진
+        { type: "steps", items: [
+          { title: "MODE", text: "바람 모드 선택" },
+          { title: "LOCK", text: "안심락, 모든 기능 잠김" },
+          { title: "ROTATION", text: "좌우 회전" },
+          { title: "TIME", text: "꺼짐 시간 설정" },
+          { title: "WIND SPEED", text: "풍속 조절" },
+          { title: "ON / OFF", text: "전원" }
+        ]}
+      ]
+    },
+
+    /* ---------- 부엌과 거실 ---------- */
+    {
+      id: "kitchen",
+      label: "부엌과 거실", // 메뉴 버튼 글자
+      sub: "인덕션 · TV · 다리미", // 메뉴 버튼 작은 글자
+      title: "부엌과 거실", // 화면 제목
+      intro: "간단한 요리와 하루를 지내는 데 필요한 것들. 대부분 전원만 켜면 됩니다.", // 화면 소개
+      blocks: [
+        { type: "section", title: "인덕션", text: "2구 인덕션입니다. 바닥이 평평한 냄비만 올라갑니다. 사용 후 전원을 반드시 꺼 주세요." },
+        { type: "note", title: "인덕션은 열이 남습니다.", text: "조리가 끝난 뒤에도 상판이 뜨거우니, 잔열 표시가 사라질 때까지 손을 대지 마세요." },
+        { type: "section", title: "전자레인지", text: "조리대 위에 있습니다. 다이얼로 시간을 맞추면 작동합니다." },
+        { type: "section", title: "정수기", text: "윗쪽 레버를 오른쪽으로 돌리면 물이 나옵니다. 정수 기능만 있고 냉수, 온수 기능은 없습니다." },
+        { type: "rows", heading: "그 밖의 부엌", rows: [
+          ["냉장고", "퇴실 시 남은 음식물은 정리해 주시면 감사하겠습니다."],
+          ["조리도구", "냄비 · 프라이팬 · 칼 · 도마 · 식기는 싱크대 상하부장에 있습니다."],
+          ["전기포트", "조리대 위"],
+          ["세제 · 수세미", "싱크대 하부장"],
+          ["종량제봉투", "싱크대 하부장에 여분이 있습니다. 버리는 법은 쓰레기 화면에 있습니다."]
+        ]},
+        { type: "section", title: "LG 스탠바이미", text: "넷플릭스 · 디즈니+ · 프라임비디오 · 왓챠는 리모컨에 전용 버튼이 있습니다. 개인 계정으로 로그인하셨다면 퇴실 전에 로그아웃해 주세요." },
+        { type: "image", src: "img/standbyme-remote.jpg", caption: "스탠바이미 리모컨과 버튼 안내" }, // 스탠바이미 리모컨 사진
+        { type: "section", title: "핸디 스팀다리미", text: "물을 채워 예열한 뒤, 옷을 걸어 둔 상태로 구김을 펼 수 있습니다. 다림판이 필요 없습니다." }
+      ]
+    },
+
+    /* ---------- 욕실 ---------- */
+    {
+      id: "bathroom",
+      label: "욕실", // 메뉴 버튼 글자
+      sub: "비데 · 어메니티", // 메뉴 버튼 작은 글자
+      title: "욕실", // 화면 제목
+      intro: "그린 타일과 골드 수전의 욕실 하나. 비데와 어메니티가 갖춰져 있습니다.", // 화면 소개
+      blocks: [
+        { type: "section", title: "비데", text: "변기 왼쪽에 붙은 리모컨으로 조작합니다. 번호는 사진과 같습니다." },
+        { type: "note", title: "앉기만 해서는 물이 나오지 않습니다.", text: "앉은 뒤 세정 버튼을 눌러야 시작되고, 정지를 누르면 멈춥니다." },
+        { type: "image", src: "img/bidet-remote.jpg", caption: "비데 리모컨" }, // 비데 리모컨 사진
+        { type: "steps", heading: "씻고 말리기", start: 1, items: [
+          { title: "정지 · 전원", text: "동작을 멈춥니다." },
+          { title: "세정", text: "회오리 물살" },
+          { title: "비데", text: "소프트 물살 (여성용)" },
+          { title: "집중세정", text: "강한 세정" },
+          { title: "건조", text: "따뜻한 바람으로 말립니다." }
+        ]},
+        { type: "steps", heading: "세기와 위치", start: 6, items: [
+          { title: "수압 · 온풍", text: "물살 세기와 바람 온도, 5단계" },
+          { title: "노즐 위치", text: "체형에 맞게 앞뒤로, 5단계" }
+        ]},
+        { type: "steps", heading: "온도와 그 밖", start: 8, items: [
+          { title: "변좌", text: "앉는 자리 온도, 0~3단계" },
+          { title: "온수", text: "물 온도, 0~3단계" },
+          { title: "절전 · 어린이", text: "자동 절전, 어린이 코스" },
+          { title: "노즐세척", text: "노즐을 자동으로 청소합니다." }
+        ]},
+        { type: "section", title: "어메니티", text: "따로 챙겨 오지 않으셔도 됩니다." },
+        { type: "rows", rows: [
+          ["샤워 부스", "MOLTON BROWN 샴푸 · 컨디셔너 · 바디워시"],
+          ["세면대", "Aesop 핸드워시 · 핸드밤"],
+          ["수건", "거실 조명 선반 아래 수납장에 여분이 있습니다."],
+          ["드라이어", "욕실 수납장"],
+          ["샤워커튼", "사용 후 펼쳐 두시면 잘 마릅니다."]
+        ]}
+      ]
+    },
+
+    /* ---------- 세탁 ---------- */
+    {
+      id: "laundry",
+      label: "세탁", // 메뉴 버튼 글자
+      sub: "세탁기 · 건조기", // 메뉴 버튼 작은 글자
+      title: "세탁실", // 화면 제목
+      intro: "세탁기와 건조기가 위아래로 놓여 있습니다. 아래가 세탁기, 위가 건조기입니다.", // 화면 소개
+      blocks: [
+        { type: "section", title: "세탁기", sub: "SAMSUNG", text: "아래쪽 기기가 세탁기입니다." },
+        { type: "image", src: "img/washer.jpg", caption: "세탁기 조작부. 번호는 아래 목록과 같습니다." }, // 세탁기 조작부 사진
+        { type: "steps", heading: "기본 조작", items: [
+          { title: "전원", text: "동작 중 멈추려면 동작/일시정지로 먼저 멈춘 뒤 끄세요. 10분간 조작이 없으면 자동으로 꺼집니다." },
+          { title: "탐색 다이얼", text: "좌우로 돌려 코스와 부가기능을 선택합니다." },
+          { title: "동작/일시정지", text: "길게 누르면 시작, 짧게 누르면 일시정지" }
+        ]},
+        { type: "rows", heading: "표시부", rows: [
+          ["표시 창", "코스 · 남은 시간 · 설정"],
+          ["Wi-Fi", "인터넷 연결 시"],
+          ["문잠금", "동작 중 자동 잠김"],
+          ["어린이보호", "기능 활성화 시"]
+        ]},
+        { type: "steps", heading: "옵션 선택부", start: 6, items: [
+          { title: "OK", text: "선택 확정" },
+          { title: "세탁온도" },
+          { title: "헹굼횟수" },
+          { title: "탈수세기" },
+          { title: "부가기능" },
+          { title: "스마트컨트롤" }
+        ]},
+        { type: "section", title: "건조기", sub: "SAMSUNG", text: "위쪽 기기가 건조기입니다. 기본 조작 순서는 세탁기와 같습니다. 전원을 켜고, 탐색 다이얼로 코스를 고른 뒤, 동작/일시정지를 길게 눌러 시작합니다." },
+        { type: "image", src: "img/dryer.jpg", caption: "건조기 조작부. 옵션이 세탁기와 다릅니다." }, // 건조기 조작부 사진
+        { type: "rows", rows: [
+          ["건조 코스", "표준건조 · 일상 세탁물에 알맞은 코스"],
+          ["주의", "건조기에 넣으면 안 되는 소재가 있습니다. 라벨을 확인해 주세요."]
+        ]},
+        { type: "steps", heading: "옵션 선택부", start: 6, items: [
+          { title: "OK", text: "선택 확정" },
+          { title: "건조정도" },
+          { title: "구김방지" },
+          { title: "시간설정" },
+          { title: "부가기능" },
+          { title: "스마트컨트롤" }
+        ]}
+      ]
+    },
+
+    /* ---------- 쓰레기 ---------- */
+    {
+      id: "waste",
+      label: "쓰레기", // 메뉴 버튼 글자
+      sub: "분리와 배출 시간", // 메뉴 버튼 작은 글자
+      title: "쓰레기", // 화면 제목
+      intro: "서울은 지역별 종량제봉투를 쓰고, 음식물을 따로 버립니다. 낯선 방식이지만 필요한 것은 이미 부엌에 다 있습니다.", // 화면 소개
+      blocks: [
+        { type: "note", title: "배출 시간은 저녁 7시부터 자정까지이며, 일요일에는 내놓지 않습니다.", text: "중구 규정으로 종량제봉투에도 인쇄되어 있습니다. 그 외 시간에는 실내에 두셨다가 다음 배출 시간에 내놓아 주세요." },
+        { type: "section", title: "무엇을 어디에", text: "봉투의 색으로 구분합니다. 노란색은 음식물, 흰색은 그 밖의 모든 것." },
+        { type: "rows", rows: [
+          ["음식물 쓰레기\n노란색 봉투 3ℓ, 5ℓ", "먹고 남은 음식만 담아 주세요. 뼈 · 조개껍데기 · 달걀껍데기 · 티백 · 이쑤시개는 음식물이 아니라 일반 쓰레기입니다. 헷갈리시면 \"동물이 먹을 수 있는가\"로 판단하시면 대체로 맞습니다."],
+          ["일반 쓰레기\n흰색 봉투", "재활용도 음식물도 아닌 모든 것. 여분 봉투는 싱크대 하부장에 있습니다."]
+        ]},
+        { type: "rows", heading: "재활용 (실내 분리수거함 3단)", rows: [
+          ["위", "PLASTIC · CAN : 페트병, 플라스틱 용기, 캔"],
+          ["중간", "VINYL : 비닐봉지, 포장 비닐"],
+          ["아래", "PAPER : 종이, 종이상자"]
+        ]},
+        { type: "note", title: "재활용은 실내 수거함까지만 하시면 됩니다.", text: "내용물을 비우고 물로 한 번 헹궈서 넣어 주세요. 밖으로 내놓지 않으셔도 됩니다." },
+        { type: "steps", heading: "밖에 내놓는 법 (일반, 음식물 봉투만)", items: [
+          { title: "봉투 입구를 묶기", text: "일반, 음식물 봉투 모두 입구를 묶어 주세요." },
+          { title: "건물 밖으로", text: "배출 장소는 건물 외부에 있습니다." },
+          { title: "표시된 자리에 놓기", text: "아래 사진의 화살표가 가리키는 지점입니다." }
+        ]},
+        { type: "image", src: "img/waste-spot.jpg", caption: "배출 지점 표시" } // 쓰레기 배출 장소 사진
+      ]
+    },
+
+    /* ---------- 어디에 있나요 ---------- */
+    {
+      id: "where",
+      label: "어디에 있나요", // 메뉴 버튼 글자
+      sub: "물건 위치 한눈에", // 메뉴 버튼 작은 글자
+      title: "어디에 있나요", // 화면 제목
+      intro: "찾으시는 물건의 자리를 한곳에 모았습니다.", // 화면 소개
+      blocks: [
+        { type: "rows", rows: [
+          ["실내 슬리퍼", "현관 옆 벽"],
+          ["와이파이 QR", "거실 식탁 옆 장식장"],
+          ["수건 여유분", "거실 조명 선반 아래 수납장"],
+          ["드라이어", "욕실 수납장"],
+          ["보일러 조작부", "화장실 맞은편 벽"],
+          ["조리도구 · 식기", "싱크대 상하부장"],
+          ["전기포트", "조리대 위"],
+          ["세제 · 수세미", "싱크대 하부장"],
+          ["종량제봉투", "싱크대 하부장"],
+          ["에어컨 리모컨", "각 방 벽면"]
+        ]},
+        { type: "note", title: "찾으시는 것이 여기에 없다면 연락 주세요.", text: "집에 있는데 못 찾으시는 경우가 대부분입니다." }
+      ]
+    },
+
+    /* ---------- 연락하기 ---------- */
+    {
+      id: "contact",
+      label: "연락하기", // 메뉴 버튼 글자
+      sub: "호스트 · 긴급 번호", // 메뉴 버튼 작은 글자
+      title: "문의", // 화면 제목
+      intro: "이 안내에 없는 것은 물어봐 주세요.", // 화면 소개
+      blocks: [
+        { type: "host" }, // 호스트 이름, 안내, 메시지 버튼 (위 4번에서 바꿉니다)
+        { type: "note", title: "기기가 고장 났거나 이상한 소리가 나면 직접 손대지 마시고 먼저 알려 주세요.", text: "대부분은 바로 해결할 수 있습니다." },
+        { type: "calls", heading: "긴급 연락처", items: [ // number는 전화 걸 번호
+          { label: "소방 · 구급", number: "119", note: "영어 통역이 연결됩니다." },
+          { label: "경찰", number: "112", note: "영어 통역이 연결됩니다." },
+          { label: "관광 안내", number: "1330", note: "한국관광공사 24시간 다국어 상담" }
+        ]},
+        { type: "rows", rows: [
+          ["지도앱", "네이버 지도 · 카카오맵을 권해 드립니다. 구글 지도는 장소 검색과 지하철, 버스 길찾기는 되지만 도보 길찾기가 없습니다."]
+        ]}
+      ]
+    }
+  ]
+};
+
+/* ================================================================
+   ================================================================
+   ===                                                          ===
+   ===           여기부터는 고치지 않으셔도 됩니다              ===
+   ===                                                          ===
+   ================================================================
+   ================================================================ */
+</script>
+
+<style>
+  :root {
+    --accent: #2F4858;
+    --text: #222222;
+    --line: #ebebeb;
+    --soft: #f4f5f6;
+    --shadow: 0 1px 4px rgba(0, 0, 0, 0.06);
+  }
+  * { box-sizing: border-box; margin: 0; padding: 0; }
+  html { -webkit-text-size-adjust: 100%; }
+  body {
+    background: #ffffff;
+    color: var(--text);
+    font-family: -apple-system, BlinkMacSystemFont, "Apple SD Gothic Neo", "Malgun Gothic", "Noto Sans KR", "Segoe UI", Roboto, sans-serif;
+    font-size: 17px;
+    line-height: 1.6;
+    word-break: keep-all;
+    overflow-wrap: break-word;
+  }
+  .wrap {
+    max-width: 480px;
+    margin: 0 auto;
+    padding: 20px 16px calc(36px + env(safe-area-inset-bottom));
+  }
+
+  /* 첫 화면 */
+  .photo {
+    width: 100%;
+    aspect-ratio: 4 / 3;
+    border-radius: 14px;
+    overflow: hidden;
+    background: var(--soft);
+    margin-bottom: 20px;
+  }
+  .photo img { width: 100%; height: 100%; object-fit: cover; display: block; }
+  .stay-name { font-size: 26px; line-height: 1.35; font-weight: 700; margin-bottom: 8px; }
+  .tagline { font-size: 18px; margin-bottom: 6px; }
+  .room-info { font-size: 16px; color: var(--accent); font-weight: 600; margin-bottom: 28px; }
+  .section-heading { font-size: 16px; font-weight: 700; color: var(--accent); margin-bottom: 12px; }
+
+  /* 메뉴 */
+  .menu-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 12px; }
+  .menu-grid a:last-child:nth-child(odd) { grid-column: 1 / -1; }
+  .menu-item {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    min-height: 104px;
+    padding: 16px 14px;
+    border: 1px solid var(--line);
+    border-radius: 14px;
+    background: #ffffff;
+    box-shadow: var(--shadow);
+    color: var(--text);
+    text-decoration: none;
+  }
+  .menu-item:active { background: var(--soft); }
+  .menu-label { font-size: 19px; font-weight: 700; color: var(--accent); line-height: 1.35; }
+  .menu-sub { font-size: 16px; margin-top: 4px; line-height: 1.4; }
+
+  /* 상세 화면 공통 */
+  .top-back { margin-bottom: 12px; }
+  .screen-title { font-size: 26px; font-weight: 700; line-height: 1.35; margin-bottom: 8px; }
+  .screen-intro { font-size: 17px; margin-bottom: 20px; }
+  .card {
+    border: 1px solid var(--line);
+    border-radius: 14px;
+    background: #ffffff;
+    box-shadow: var(--shadow);
+    padding: 18px 16px;
+    margin-bottom: 14px;
+  }
+  .card-label { font-size: 16px; font-weight: 700; color: var(--accent); margin-bottom: 6px; }
+  .card-value { font-size: 20px; font-weight: 600; margin-bottom: 4px; }
+  .card-text { font-size: 17px; white-space: pre-line; }
+  .card-note { font-size: 16px; margin-top: 10px; }
+  .btn-stack { display: grid; gap: 10px; margin-top: 14px; }
+
+  /* 시각 */
+  .time-row { display: grid; grid-template-columns: 1fr 1fr; gap: 12px; }
+  .time-value { font-size: 26px; font-weight: 700; line-height: 1.3; }
+  .time-suffix { font-size: 16px; font-weight: 600; margin-left: 4px; }
+
+  /* 소제목 */
+  .sec { margin: 30px 0 12px; }
+  .sec-title { font-size: 22px; font-weight: 700; line-height: 1.35; }
+  .sec-sub { font-size: 16px; color: var(--accent); letter-spacing: 0.04em; margin-top: 2px; }
+  .sec-text { font-size: 17px; margin-top: 8px; white-space: pre-line; }
+
+  /* 항목 목록 */
+  .row { padding: 12px 0; border-top: 1px solid var(--line); }
+  .row:first-of-type { border-top: none; padding-top: 0; }
+  .card-label + .row { border-top: none; padding-top: 4px; }
+  .row:last-child { padding-bottom: 0; }
+  .row-label { font-size: 16px; font-weight: 700; color: var(--accent); white-space: pre-line; }
+  .row-value { font-size: 17px; white-space: pre-line; margin-top: 2px; }
+
+  /* 번호 순서 */
+  .steps { list-style: none; }
+  .step { display: flex; gap: 12px; padding: 10px 0; border-top: 1px solid var(--line); }
+  .step:first-child { border-top: none; padding-top: 2px; }
+  .step:last-child { padding-bottom: 0; }
+  .step-num {
+    flex: 0 0 32px;
+    width: 32px;
+    height: 32px;
+    border-radius: 16px;
+    background: var(--accent);
+    color: #ffffff;
+    font-size: 16px;
+    font-weight: 700;
+    line-height: 32px;
+    text-align: center;
+    margin-top: 1px;
+  }
+  .step-title { font-size: 17px; font-weight: 700; }
+  .step-text { font-size: 17px; }
+
+  /* 강조 상자 */
+  .note {
+    background: var(--soft);
+    border-radius: 14px;
+    padding: 16px;
+    margin-bottom: 14px;
+  }
+  .note-title { font-size: 17px; font-weight: 700; color: var(--accent); }
+  .note-text { font-size: 17px; margin-top: 4px; white-space: pre-line; }
+
+  /* 사진 */
+  .figure { margin-bottom: 14px; }
+  .figure img { width: 100%; height: auto; display: block; border-radius: 14px; background: var(--soft); }
+  .figure figcaption { font-size: 16px; margin-top: 6px; }
+
+  /* 다른 화면으로 가는 목록 */
+  .link-list { display: grid; gap: 10px; }
+  .link-item {
+    display: block;
+    min-height: 56px;
+    padding: 12px 16px;
+    border: 1px solid var(--line);
+    border-radius: 14px;
+    background: #ffffff;
+    box-shadow: var(--shadow);
+    color: var(--text);
+    text-decoration: none;
+  }
+  .link-item:active { background: var(--soft); }
+  .link-label { display: block; font-size: 18px; font-weight: 700; color: var(--accent); }
+  .link-sub { display: block; font-size: 16px; }
+
+  /* 전화 */
+  .call { padding: 12px 0; border-top: 1px solid var(--line); }
+  .card-label + .call { border-top: none; padding-top: 4px; }
+  .call:last-child { padding-bottom: 0; }
+  .call-title { font-size: 18px; font-weight: 700; }
+  .call-note { font-size: 16px; }
+  .call .btn { margin-top: 8px; }
+
+  /* 버튼 */
+  .btn {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    width: 100%;
+    min-height: 52px;
+    padding: 12px 16px;
+    border-radius: 8px;
+    font-family: inherit;
+    font-size: 17px;
+    font-weight: 600;
+    line-height: 1.4;
+    text-align: center;
+    text-decoration: none;
+    cursor: pointer;
+    -webkit-tap-highlight-color: transparent;
+  }
+  .btn-primary { background: var(--accent); color: #ffffff; border: 1px solid var(--accent); }
+  .btn-line { background: #ffffff; color: var(--accent); border: 1px solid var(--accent); }
+  .btn-plain {
+    display: inline-flex;
+    width: auto;
+    min-height: 48px;
+    padding: 10px 0;
+    background: none;
+    border: none;
+    color: var(--accent);
+  }
+  .btn:active { opacity: 0.85; }
+  .bottom-back { margin-top: 26px; }
+  a:focus-visible, button:focus-visible { outline: 3px solid var(--accent); outline-offset: 2px; }
+
+  /* 복사 알림 */
+  .toast {
+    position: fixed;
+    left: 50%;
+    bottom: calc(24px + env(safe-area-inset-bottom));
+    transform: translate(-50%, 20px);
+    max-width: calc(100% - 32px);
+    padding: 12px 18px;
+    border-radius: 8px;
+    background: #222222;
+    color: #ffffff;
+    font-size: 16px;
+    text-align: center;
+    opacity: 0;
+    pointer-events: none;
+    transition: opacity 0.2s, transform 0.2s;
+    z-index: 10;
+  }
+  .toast.show { opacity: 1; transform: translate(-50%, 0); }
+</style>
+</head>
+<body>
+<div id="app" class="wrap"></div>
+<div id="toast" class="toast" role="status" aria-live="polite"></div>
+
+<script>
+(function () {
+  var C = CONFIG;
+  var T = C.text || {};
+  var SCREENS = C.screens || [];
+  var app = document.getElementById("app");
+  var toastBox = document.getElementById("toast");
+  var toastTimer = null;
+
+  document.title = C.stayName || "";
+  if (C.accentColor) {
+    document.documentElement.style.setProperty("--accent", C.accentColor);
+  }
+
+  /* ---------- 작은 도구들 ---------- */
+  function el(tag, cls, txt) {
+    var e = document.createElement(tag);
+    if (cls) e.className = cls;
+    if (txt !== undefined && txt !== null && txt !== "") e.textContent = txt;
+    return e;
+  }
+  function add(parent, child) { parent.appendChild(child); return child; }
+  function pad2(n) { return n < 10 ? "0" + n : String(n); }
+  function findScreen(id) {
+    for (var i = 0; i < SCREENS.length; i++) {
+      if (SCREENS[i] && SCREENS[i].id === id) return SCREENS[i];
+    }
+    return null;
+  }
+
+  function showToast(msg) {
+    toastBox.textContent = msg;
+    toastBox.classList.add("show");
+    clearTimeout(toastTimer);
+    toastTimer = setTimeout(function () { toastBox.classList.remove("show"); }, 2200);
+  }
+
+  function copyText(text) {
+    function fallback() {
+      var ta = document.createElement("textarea");
+      ta.value = text;
+      ta.setAttribute("readonly", "");
+      ta.style.position = "fixed";
+      ta.style.top = "-1000px";
+      document.body.appendChild(ta);
+      ta.select();
+      ta.setSelectionRange(0, text.length);
+      var ok = false;
+      try { ok = document.execCommand("copy"); } catch (e) { ok = false; }
+      document.body.removeChild(ta);
+      showToast(ok ? T.copied : T.copyFailed);
+    }
+    if (navigator.clipboard && window.isSecureContext) {
+      navigator.clipboard.writeText(text).then(function () { showToast(T.copied); }, fallback);
+    } else {
+      fallback();
+    }
+  }
+
+  function mapUrl(type, address) {
+    var q = encodeURIComponent(address);
+    if (type === "naver") return "https://map.naver.com/p/search/" + q;
+    if (type === "kakao") return "https://map.kakao.com/link/search/" + q;
+    if (type === "google") return "https://www.google.com/maps/search/?api=1&query=" + q;
+    return null;
+  }
+
+  function linkButton(label, href, style) {
+    var a = el("a", "btn " + style, label);
+    a.href = href;
+    return a;
+  }
+
+  function copyButton(label, value, style) {
+    var b = el("button", "btn " + style, label);
+    b.type = "button";
+    b.addEventListener("click", function () { copyText(String(value)); });
+    return b;
+  }
+
+  function card(label) {
+    var c = el("div", "card");
+    if (label) add(c, el("div", "card-label", label));
+    return c;
+  }
+
+  /* ---------- 내용 조각 그리기 ---------- */
+  var blockMakers = {
+
+    section: function (b) {
+      var box = el("div", "sec");
+      add(box, el("h2", "sec-title", b.title));
+      if (b.sub) add(box, el("div", "sec-sub", b.sub));
+      if (b.text) add(box, el("p", "sec-text", b.text));
+      return box;
+    },
+
+    text: function (b) {
+      return el("p", "sec-text", b.text);
+    },
+
+    rows: function (b) {
+      var c = card(b.heading);
+      (b.rows || []).forEach(function (r) {
+        var row = add(c, el("div", "row"));
+        add(row, el("div", "row-label", r[0]));
+        if (r[1]) add(row, el("div", "row-value", r[1]));
+      });
+      return c;
+    },
+
+    steps: function (b) {
+      var c = card(b.heading);
+      var ol = add(c, el("ol", "steps"));
+      var n = typeof b.start === "number" ? b.start : 1;
+      (b.items || []).forEach(function (s, i) {
+        var li = add(ol, el("li", "step"));
+        add(li, el("span", "step-num", pad2(n + i)));
+        var body = add(li, el("div"));
+        add(body, el("div", "step-title", s.title));
+        if (s.text) add(body, el("div", "step-text", s.text));
+      });
+      return c;
+    },
+
+    note: function (b) {
+      var box = el("div", "note");
+      if (b.title) add(box, el("div", "note-title", b.title));
+      if (b.text) add(box, el("p", "note-text", b.text));
+      return box;
+    },
+
+    image: function (b) {
+      if (!b.src) return null;
+      var fig = el("figure", "figure");
+      var img = el("img");
+      img.alt = b.caption || "";
+      img.loading = "lazy";
+      img.onerror = function () { if (fig.parentNode) fig.parentNode.removeChild(fig); };
+      img.src = b.src;
+      add(fig, img);
+      if (b.caption) add(fig, el("figcaption", "", b.caption));
+      return fig;
+    },
+
+    links: function (b) {
+      var box = el("div", "link-list");
+      (b.items || []).forEach(function (it) {
+        if (!findScreen(it.to)) return;
+        var a = add(box, el("a", "link-item"));
+        a.href = "#" + it.to;
+        add(a, el("span", "link-label", it.label));
+        if (it.sub) add(a, el("span", "link-sub", it.sub));
+      });
+      return box;
+    },
+
+    calls: function (b) {
+      var c = card(b.heading);
+      (b.items || []).forEach(function (it) {
+        var row = add(c, el("div", "call"));
+        add(row, el("div", "call-title", it.number + "  " + it.label));
+        if (it.note) add(row, el("div", "call-note", it.note));
+        var label = (T.callButton || "{number}").replace("{number}", it.number);
+        add(row, linkButton(label, "tel:" + String(it.number).replace(/[^0-9+]/g, ""), "btn-line"));
+      });
+      return c;
+    },
+
+    times: function () {
+      var c = el("div", "card time-row");
+      var t1 = add(c, el("div"));
+      add(t1, el("div", "card-label", T.checkinTimeLabel));
+      var v1 = add(t1, el("div", "time-value", C.checkinTime));
+      if (T.checkinTimeSuffix) add(v1, el("span", "time-suffix", T.checkinTimeSuffix));
+      var t2 = add(c, el("div"));
+      add(t2, el("div", "card-label", T.checkoutTimeLabel));
+      var v2 = add(t2, el("div", "time-value", C.checkoutTime));
+      if (T.checkoutTimeSuffix) add(v2, el("span", "time-suffix", T.checkoutTimeSuffix));
+      return c;
+    },
+
+    address: function () {
+      var c = card(T.addressLabel);
+      add(c, el("div", "card-value", C.address));
+      if (C.addressNote) add(c, el("p", "card-text", C.addressNote));
+      var stack = add(c, el("div", "btn-stack"));
+      add(stack, copyButton(T.copyAddress, C.address, "btn-line"));
+      (C.maps || []).forEach(function (m) {
+        var url = mapUrl(m.type, C.mapAddress || C.address);
+        if (url) add(stack, linkButton(m.label, url, "btn-primary"));
+      });
+      return c;
+    },
+
+    wifi: function () {
+      var box = el("div");
+      var nameCard = add(box, card(T.wifiNameLabel));
+      add(nameCard, el("div", "card-value", C.wifiName));
+      var pwCard = add(box, card(T.wifiPasswordLabel));
+      add(pwCard, el("div", "card-value", C.wifiPassword));
+      var stack = add(pwCard, el("div", "btn-stack"));
+      add(stack, copyButton(T.copyPassword, C.wifiPassword, "btn-primary"));
+      if (C.wifiQrGuide) {
+        var qrCard = add(box, card(T.wifiQrLabel));
+        add(qrCard, el("p", "card-text", C.wifiQrGuide));
+      }
+      return box;
+    },
+
+    uber: function () {
+      var hasPos = C.stayLatitude && C.stayLongitude;
+      function place(key) {
+        var p = [];
+        if (hasPos) {
+          p.push(key + "[latitude]=" + encodeURIComponent(C.stayLatitude));
+          p.push(key + "[longitude]=" + encodeURIComponent(C.stayLongitude));
+        }
+        if (C.uberNickname) p.push(key + "[nickname]=" + encodeURIComponent(C.uberNickname));
+        p.push(key + "[formatted_address]=" + encodeURIComponent(C.uberAddress || C.mapAddress || C.address));
+        return p.join("&");
+      }
+      var base = "https://m.uber.com/ul/?action=setPickup&";
+      var box = el("div");
+
+      var c1 = add(box, card(T.uberToStayLabel));
+      if (T.uberToStayNote) add(c1, el("p", "card-text", T.uberToStayNote));
+      var s1 = add(c1, el("div", "btn-stack"));
+      add(s1, linkButton(T.uberToStayButton, base + "pickup=my_location&" + place("dropoff"), "btn-primary"));
+
+      var c2 = add(box, card(T.uberFromStayLabel));
+      if (T.uberFromStayNote) add(c2, el("p", "card-text", T.uberFromStayNote));
+      var s2 = add(c2, el("div", "btn-stack"));
+      add(s2, linkButton(T.uberFromStayButton, base + place("pickup"), "btn-primary"));
+
+      return box;
+    },
+
+    host: function () {
+      var c = card(T.hostLabel);
+      add(c, el("div", "card-value", C.hostName));
+      if (C.contactGuide) add(c, el("p", "card-text", C.contactGuide));
+      var stack = add(c, el("div", "btn-stack"));
+      add(stack, linkButton(T.contactButton, C.contactUrl, "btn-primary"));
+      if (T.contactNote) add(c, el("p", "card-note", T.contactNote));
+      return c;
+    }
+  };
+
+  /* ---------- 첫 화면 + 메뉴 ---------- */
+  function renderHome() {
+    var photoBox = add(app, el("div", "photo"));
+    if (C.photo) {
+      var img = el("img");
+      img.alt = "";
+      img.onerror = function () { if (img.parentNode) img.parentNode.removeChild(img); };
+      img.src = C.photo;
+      add(photoBox, img);
+    }
+
+    add(app, el("h1", "stay-name", C.stayName));
+    if (C.tagline) add(app, el("p", "tagline", C.tagline));
+    if (T.roomInfo) {
+      var info = T.roomInfo
+        .replace("{guests}", C.maxGuests)
+        .replace("{bedrooms}", C.bedrooms)
+        .replace("{bathrooms}", C.bathrooms);
+      add(app, el("p", "room-info", info));
+    }
+
+    if (T.menuHeading) add(app, el("h2", "section-heading", T.menuHeading));
+    var grid = add(app, el("nav", "menu-grid"));
+    SCREENS.forEach(function (s) {
+      if (!s || !s.id) return;
+      var a = el("a", "menu-item");
+      a.href = "#" + s.id;
+      add(a, el("span", "menu-label", s.label));
+      if (s.sub) add(a, el("span", "menu-sub", s.sub));
+      add(grid, a);
+    });
+  }
+
+  /* ---------- 상세 화면 ---------- */
+  function renderScreen(s) {
+    var top = add(app, el("a", "btn btn-plain top-back", T.back));
+    top.href = "#home";
+
+    add(app, el("h1", "screen-title", s.title || s.label));
+    if (s.intro) add(app, el("p", "screen-intro", s.intro));
+
+    (s.blocks || []).forEach(function (b) {
+      if (!b || !blockMakers[b.type]) return;
+      try {
+        var node = blockMakers[b.type](b);
+        if (node) add(app, node);
+      } catch (e) {
+        /* 조각 하나가 잘못되어도 나머지 화면은 그대로 보이게 합니다 */
+      }
+    });
+
+    var bottom = add(app, el("a", "btn btn-line bottom-back", T.back));
+    bottom.href = "#home";
+  }
+
+  /* ---------- 화면 전환 ---------- */
+  function route() {
+    var id = (location.hash || "").replace("#", "");
+    var s = findScreen(id);
+    app.innerHTML = "";
+    if (s) renderScreen(s); else renderHome();
+    window.scrollTo(0, 0);
+  }
+
+  window.addEventListener("hashchange", route);
+  route();
+})();
+</script>
+</body>
+</html>
