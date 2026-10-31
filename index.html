@@ -642,7 +642,9 @@ const CONFIG = {
     /* 에어비앤비 체험 모음. 순서는 화면에 보이는 순서일 뿐 에어비앤비 공식 순위가 아닙니다
        filters: 위쪽 고르기 단추. key 는 고치지 마세요
        items: 체험 카드. cat 분류 글자, filter 어느 단추에 들어갈지, icon 그림,
-       text 소개, rating 평점, reviews 후기 수, caution 주의사항 (없으면 빼세요), url 에어비앤비 주소 */
+       text 소개, rating 평점, reviews 후기 수, caution 주의사항 (없으면 빼세요), url 에어비앤비 주소
+       photo 에어비앤비 체험 사진 주소 (저장하지 않고 에어비앤비에서 바로 불러옵니다. 안 열리면 그림만 보입니다)
+       airbnbName 에어비앤비에 올라와 있는 체험 이름. 사진 위에 함께 보입니다 */
     {
       id: "tours",
       group: "home", // "home" 은 탭이 아니라 첫 화면 바로가기 아래 큰 카드(toursBanner)에서 들어갑니다
@@ -666,34 +668,44 @@ const CONFIG = {
           items: [
             { filter: "food", icon: "bowl", cat: "먹거리", name: "광장시장 먹거리 투어",
               text: "현지 가이드와 광장시장을 둘러보며 한국 음식과 시장 문화를 경험해보세요.",
-              rating: "4.96", reviews: "5,176", url: "https://www.airbnb.com/experiences/405465" },
+              rating: "4.96", reviews: "5,176", url: "https://www.airbnb.com/experiences/405465",
+              photo: "https://a0.muscache.com/im/pictures/Mt/MtTemplate-405465/original/70a94313-3332-4480-b52e-da7a66fd81a3.jpeg?im_w=720", airbnbName: "서울 길거리 음식 시장 투어" },
             { filter: "night", icon: "glass", cat: "나이트라이프", name: "서울 펍 크롤",
               text: "홍대 또는 이태원의 바와 클럽을 함께 방문하며 다른 여행자들과 교류하는 체험입니다.",
-              rating: "4.82", reviews: "2,382", caution: "19세 이상 참여 가능. 신분증과 날짜별 집결 장소를 확인하세요.", url: "https://www.airbnb.com/experiences/161886" },
+              rating: "4.82", reviews: "2,382", caution: "19세 이상 참여 가능. 신분증과 날짜별 집결 장소를 확인하세요.", url: "https://www.airbnb.com/experiences/161886",
+              photo: "https://a0.muscache.com/im/pictures/Mt/MtTemplate-161886/original/b41b237a-a9ce-4e8c-b19e-0ea2f67f824f.jpeg?im_w=720", airbnbName: "서울 펍 크롤" },
             { filter: "culture", icon: "gate", cat: "문화 · 산책", name: "서울 야간 골목 · 성곽 산책",
               text: "혜화와 이화동을 지나 낙산공원과 한양도성의 야경을 즐기는 가이드 산책입니다.",
-              rating: "4.95", reviews: "2,247", caution: "오르막과 걷는 구간이 있습니다.", url: "https://www.airbnb.com/experiences/1143839" },
+              rating: "4.95", reviews: "2,247", caution: "오르막과 걷는 구간이 있습니다.", url: "https://www.airbnb.com/experiences/1143839",
+              photo: "https://a0.muscache.com/im/pictures/Mt/MtTemplate-1143839/original/4af80e36-2349-411c-abb4-9dd6b0ee657c.jpeg?im_w=720", airbnbName: "서울: 숨은 명소를 찾아가는 야간 도보 투어" },
             { filter: "craft", icon: "perfume", cat: "공방", name: "한옥에서 나만의 향수 만들기",
               text: "종로의 한옥에서 조향사와 향을 조합하고 나만의 향수를 만들어보세요.",
-              rating: "4.95", reviews: "1,426", url: "https://www.airbnb.com/experiences/1469132" },
+              rating: "4.95", reviews: "1,426", url: "https://www.airbnb.com/experiences/1469132",
+              photo: "https://a0.muscache.com/im/pictures/lombard/MtTemplate-1469132-active_media/original/3b9b8a1a-8770-4a4b-ab4b-a6d1c6112502.jpg?im_w=720", airbnbName: "고즈넉한 한옥에서 즐기는 나만의 향수 만들기 체험" },
             { filter: "food", icon: "grill", cat: "먹거리", name: "현지 호스트와 한국 바비큐",
               text: "호스트가 고른 중구의 돼지고기 바비큐 식당에서 식사하며 한국의 식문화를 알아보세요.",
-              rating: "4.90", reviews: "1,208", caution: "식당과 정확한 집결 장소는 예약 후 안내를 확인하세요.", url: "https://www.airbnb.com/experiences/4837890" },
+              rating: "4.90", reviews: "1,208", caution: "식당과 정확한 집결 장소는 예약 후 안내를 확인하세요.", url: "https://www.airbnb.com/experiences/4837890",
+              photo: "https://a0.muscache.com/im/pictures/Mt/MtTemplate-4837890/original/8d3410d6-30f9-45b3-a48f-2a748b273e90.jpeg?im_w=720", airbnbName: "호스트가 엄선한 이달의 한국식 바비큐 맛집" },
             { filter: "sports", icon: "baseball", cat: "스포츠", name: "잠실 야구 관람과 식사",
               text: "식사와 함께 잠실 야구장에서 한국 프로야구의 응원 문화를 경험해보세요.",
-              rating: "4.89", reviews: "829", caution: "경기 일정과 시즌에 따라 참여 가능 여부가 달라집니다.", url: "https://www.airbnb.com/experiences/4217908" },
+              rating: "4.89", reviews: "829", caution: "경기 일정과 시즌에 따라 참여 가능 여부가 달라집니다.", url: "https://www.airbnb.com/experiences/4217908",
+              photo: "https://a0.muscache.com/im/pictures/lombard/MtTemplate-4217908-active_media/original/04ae2d4d-d5dc-478a-be7e-f8512da5671e.jpg?im_w=720", airbnbName: "서울 야구 경기 관람 & 현지인 저녁 식사" },
             { filter: "culture", icon: "camera", cat: "문화 · 사진", name: "경복궁 한복 촬영 · 역사 산책",
               text: "한복을 입고 역사 가이드 · 사진가와 경복궁을 걸으며 여행 사진을 남겨보세요.",
-              rating: "4.99", reviews: "569", url: "https://www.airbnb.com/experiences/5847008" },
+              rating: "4.99", reviews: "569", url: "https://www.airbnb.com/experiences/5847008",
+              photo: "https://a0.muscache.com/im/pictures/Mt/MtTemplate-5847008/original/873cb50d-cb56-41ab-aa2c-b4b47fc2ac27.jpeg?im_w=720", airbnbName: "궁궐에서 즐기는 한복 사진 촬영과 역사 산책" },
             { filter: "food", icon: "pot", cat: "요리", name: "현지 가정에서 김치 만들기",
               text: "김치를 직접 만들고 한국식 식사를 즐기며 김치의 발효와 보관 방법을 배워보세요.",
-              rating: "5.00", reviews: "406", caution: "식이 제한과 알레르기는 예약 전에 호스트에게 확인하세요.", url: "https://www.airbnb.com/experiences/5724663" },
+              rating: "5.00", reviews: "406", caution: "식이 제한과 알레르기는 예약 전에 호스트에게 확인하세요.", url: "https://www.airbnb.com/experiences/5724663",
+              photo: "https://a0.muscache.com/im/pictures/Mt/MtTemplate-5724663/original/c997fc48-dc78-403b-8799-b51a55bffbdf.jpeg?im_w=720", airbnbName: "한국 가정집에서 즐기는 전통 김치 만들기" },
             { filter: "food", icon: "pot", cat: "요리", name: "한옥에서 궁중요리 배우기",
               text: "인사동 인근 한옥에서 갈비 등 전통 요리를 만들고 직접 차린 식사를 즐겨보세요.",
-              rating: "5.00", reviews: "264", caution: "식이 제한과 알레르기는 예약 전에 호스트에게 확인하세요.", url: "https://www.airbnb.com/experiences/5578128" },
+              rating: "5.00", reviews: "264", caution: "식이 제한과 알레르기는 예약 전에 호스트에게 확인하세요.", url: "https://www.airbnb.com/experiences/5578128",
+              photo: "https://a0.muscache.com/im/pictures/Mt/MtTemplate-5578128/original/0ba1507a-c5f3-474e-a9de-d033a9d235a1.jpeg?im_w=720", airbnbName: "현지인의 한옥에서 즐기는 서울 왕실 요리 쿠킹 클래스" },
             { filter: "nature", icon: "mountain", cat: "자연 · 야외", name: "북한산 정상 등산",
               text: "가이드와 북한산 정상 코스를 오르며 서울의 산과 풍경을 경험해보세요.",
-              rating: "4.98", reviews: "228", caution: "체력 · 날씨 · 등산화 등 준비물을 확인하세요. 가벼운 도심 산책과는 다릅니다.", url: "https://www.airbnb.com/experiences/3917857" }
+              rating: "4.98", reviews: "228", caution: "체력 · 날씨 · 등산화 등 준비물을 확인하세요. 가벼운 도심 산책과는 다릅니다.", url: "https://www.airbnb.com/experiences/3917857",
+              photo: "https://a0.muscache.com/im/pictures/Mt/MtTemplate-3917857/original/7af6a6df-57f0-4062-82af-a341809e56f5.jpeg?im_w=720", airbnbName: "북한산 국립공원 정상 코스" }
           ]
         },
         { type: "note", icon: "info", title: "꼭 읽어 주세요",
@@ -1234,7 +1246,17 @@ const CONFIG = {
     "에어비앤비 공식 순위가 아닙니다.": { en: "This is not an official Airbnb ranking.", ja: "Airbnbの公式ランキングではありません。", zh: "这不是爱彼迎的官方排名。", zht: "這不是愛彼迎的官方排名。" },
     "평점 · 후기 수는 2026년 10월 31일 확인 기준입니다.": { en: "Ratings and review counts as checked on October 31, 2026.", ja: "評価 · 口コミ数は2026年10月31日に確認した時点のものです。", zh: "评分 · 评价数以2026年10月31日确认时为准。", zht: "評分 · 評價數以2026年10月31日確認時為準。" },
     "최신 가격 · 일정 · 참여 조건은 각 체험 페이지에서 확인하세요.": { en: "Check each experience page for the latest prices, schedules, and requirements.", ja: "最新の料金 · 日程 · 参加条件は各体験ページで確認してください。", zh: "最新价格 · 日程 · 参加条件请在各体验页面确认。", zht: "最新價格 · 日程 · 參加條件請在各體驗頁面確認。" },
-    "예약과 결제는 에어비앤비에서 진행됩니다.": { en: "Booking and payment are made on Airbnb.", ja: "予約と決済はAirbnbで行います。", zh: "预订和付款均在爱彼迎上进行。", zht: "預訂和付款均在愛彼迎上進行。" }
+    "예약과 결제는 에어비앤비에서 진행됩니다.": { en: "Booking and payment are made on Airbnb.", ja: "予約と決済はAirbnbで行います。", zh: "预订和付款均在爱彼迎上进行。", zht: "預訂和付款均在愛彼迎上進行。" },
+    "서울 길거리 음식 시장 투어": { en: "Seoul Street Food Market Tour", ja: "ソウルのストリートフード市場ツアー", zh: "首尔街头美食市场之旅", zht: "首爾街頭美食市場之旅" },
+    "서울: 숨은 명소를 찾아가는 야간 도보 투어": { en: "Seoul : Night Hidden Gems Walking Tour", ja: "ソウル：夜の穴場散策ツアー", zh: "首尔：夜间隐秘宝地漫步之旅", zht: "首爾：夜間隱藏瑰寶漫步之旅" },
+    "고즈넉한 한옥에서 즐기는 나만의 향수 만들기 체험": { en: "Create your own perfume in a quiet Hanok", ja: "静かな韓屋でオリジナルの香水づくり体験", zh: "在宁静的韩屋中制作属于自己的香水", zht: "在寧靜的韓屋中體驗製作專屬香水" },
+    "호스트가 엄선한 이달의 한국식 바비큐 맛집": { en: "Korean bbq Spot of the Month Curated by the Host", ja: "ホストが選ぶ今月の韓国BBQスポット", zh: "房东精选的本月韩国烧烤好去处", zht: "房東精選的本月韓式燒烤好去處" },
+    "서울 야구 경기 관람 & 현지인 저녁 식사": { en: "Seoul Baseball Game Experience with Local Dinner", ja: "ソウルで野球観戦体験（地元のディナー付き）", zh: "首尔棒球比赛体验（含当地晚餐）", zht: "首爾棒球賽與當地晚餐體驗" },
+    "궁궐에서 즐기는 한복 사진 촬영과 역사 산책": { en: "Hanbok Photoshoot and History Walk at the Palace", ja: "韓服を着て写真撮影＆宮殿で歴史散策", zh: "韩服摄影和宫殿历史漫步", zht: "韓服攝影和宮殿歷史漫步" },
+    "한국 가정집에서 즐기는 전통 김치 만들기": { en: "Traditional Kimchi Making in a Local Korean Home", ja: "韓国人ホストの自宅で伝統的なキムチづくり体験", zh: "在韩国本地家庭体验传统泡菜制作", zht: "在韓國當地人家中學做傳統泡菜" },
+    "현지인의 한옥에서 즐기는 서울 왕실 요리 쿠킹 클래스": { en: "Royal Seoul Cooking Class in Local's Hanok Home", ja: "地元の韓屋でロイヤルソウル料理のクッキング教室", zh: "在当地人的韩屋中学做皇家首尔菜", zht: "在當地的韓屋家中學習皇家首爾烹飪課程" },
+    "북한산 국립공원 정상 코스": { en: "Bukhansan National Park: The Summit Course", ja: "北漢山国立公園の山頂コースをハイキング", zh: "北汉山国立公园：登顶之旅", zht: "北漢山國立公園：山頂課程" },
+    "사진 · 체험 이름: 에어비앤비": { en: "Photo · Listing name: Airbnb", ja: "写真 · 体験名：Airbnb", zh: "照片 · 体验名称：爱彼迎", zht: "照片 · 體驗名稱：Airbnb" }
   }
 };
 
@@ -1722,6 +1744,12 @@ const CONFIG = {
   .tour-list { display: grid; gap: 14px; }
   .tour { padding: 16px; border-radius: 18px; background: #ffffff; border: 1px solid var(--line); box-shadow: 0 6px 18px rgba(59, 42, 32, 0.06); }
   .tour[hidden] { display: none; }
+  .tour.has-photo { padding-top: 0; overflow: hidden; }
+  .tour-photo { position: relative; display: block; margin: 0 -16px 14px; aspect-ratio: 16 / 10; background: var(--soft); overflow: hidden; }
+  .tour-photo img { width: 100%; height: 100%; object-fit: cover; display: block; }
+  .tour-photo::after { content: ""; position: absolute; inset: 45% 0 0; background: linear-gradient(to bottom, rgba(30, 20, 14, 0), rgba(30, 20, 14, 0.78)); }
+  .tour-photo-name { position: absolute; z-index: 1; left: 14px; right: 14px; bottom: 12px; color: #ffffff; font-size: 16px; font-weight: 700; line-height: 1.35; text-shadow: 0 1px 3px rgba(0, 0, 0, 0.35); }
+  .tour-photo-credit { position: absolute; z-index: 1; top: 10px; right: 10px; padding: 3px 8px; border-radius: 999px; background: rgba(30, 20, 14, 0.55); color: #ffffff; font-size: 12px; font-weight: 700; letter-spacing: 0.02em; }
   .tour-top { display: flex; align-items: center; gap: 12px; }
   .tour-head { flex: 1; min-width: 0; }
   .tour-cat { display: flex; align-items: center; gap: 8px; font-size: 14px; font-weight: 700; color: var(--accent); }
@@ -2394,7 +2422,22 @@ const CONFIG = {
       }
       var list = add(wrap, el("div", "tour-list"));
       items.forEach(function (it, i) {
-        var c = add(list, el("article", "tour"));
+        var c = add(list, el("article", "tour" + (it.photo ? " has-photo" : "")));
+        if (it.photo) {
+          var ph = add(c, el("a", "tour-photo"));
+          ph.href = it.url || "#";
+          ph.target = "_blank";
+          ph.rel = "noopener";
+          var im = el("img");
+          im.alt = tr(it.airbnbName || it.name);
+          im.loading = "lazy";
+          im.referrerPolicy = "no-referrer";
+          im.onerror = function () { if (ph.parentNode) ph.parentNode.removeChild(ph); c.classList.remove("has-photo"); };
+          im.src = it.photo;
+          add(ph, im);
+          if (it.airbnbName) add(ph, el("span", "tour-photo-name", it.airbnbName));
+          add(ph, el("span", "tour-photo-credit", "Airbnb"));
+        }
         var top = add(c, el("div", "tour-top"));
         addIcon(top, it.icon || "star", "ico-bubble");
         var hd = add(top, el("div", "tour-head"));
@@ -2421,6 +2464,7 @@ const CONFIG = {
         }
         cardsEl.push([it.filter, c]);
       });
+      if (items.some(function (it) { return it.photo; })) add(wrap, el("p", "tour-checked", "사진 · 체험 이름: 에어비앤비"));
       if (b.checked) add(wrap, el("p", "tour-checked", tr("평점 · 후기 수 확인일: {date}").replace("{date}", tr(b.checked))));
       return wrap;
     },
