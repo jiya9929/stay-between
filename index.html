@@ -629,6 +629,69 @@ const CONFIG = {
       ]
     },
 
+    /* ---------- 서울 인기 체험 10선 ---------- */
+    /* 에어비앤비 체험 모음. 순서는 화면에 보이는 순서일 뿐 에어비앤비 공식 순위가 아닙니다
+       filters: 위쪽 고르기 단추. key 는 고치지 마세요
+       items: 체험 카드. cat 분류 글자, filter 어느 단추에 들어갈지, icon 그림,
+       text 소개, rating 평점, reviews 후기 수, caution 주의사항 (없으면 빼세요), url 에어비앤비 주소 */
+    {
+      id: "tours",
+      group: "after", // 첫 화면 묶음
+      icon: "star", // 메뉴 버튼 그림
+      label: "서울 인기 체험 10선", // 메뉴 버튼 글자
+      sub: "에어비앤비 체험", // 메뉴 버튼 작은 글자
+      title: "서울 인기 체험 10선", // 화면 제목
+      intro: "서울 여행을 위한 추천 체험 모음입니다.", // 화면 소개
+      blocks: [
+        { type: "tours",
+          checked: "2026년 10월 31일", // 평점과 후기 수를 확인한 날
+          filters: [
+            { key: "all", label: "전체" },
+            { key: "food", label: "먹거리 · 요리" },
+            { key: "culture", label: "문화 · 산책" },
+            { key: "craft", label: "공방" },
+            { key: "sports", label: "스포츠" },
+            { key: "nature", label: "자연 · 야외" },
+            { key: "night", label: "나이트라이프" }
+          ],
+          items: [
+            { filter: "food", icon: "bowl", cat: "먹거리", name: "광장시장 먹거리 투어",
+              text: "현지 가이드와 광장시장을 둘러보며 한국 음식과 시장 문화를 경험해보세요.",
+              rating: "4.96", reviews: "5,176", url: "https://www.airbnb.com/experiences/405465" },
+            { filter: "night", icon: "glass", cat: "나이트라이프", name: "서울 펍 크롤",
+              text: "홍대 또는 이태원의 바와 클럽을 함께 방문하며 다른 여행자들과 교류하는 체험입니다.",
+              rating: "4.82", reviews: "2,382", caution: "19세 이상 참여 가능. 신분증과 날짜별 집결 장소를 확인하세요.", url: "https://www.airbnb.com/experiences/161886" },
+            { filter: "culture", icon: "gate", cat: "문화 · 산책", name: "서울 야간 골목 · 성곽 산책",
+              text: "혜화와 이화동을 지나 낙산공원과 한양도성의 야경을 즐기는 가이드 산책입니다.",
+              rating: "4.95", reviews: "2,247", caution: "오르막과 걷는 구간이 있습니다.", url: "https://www.airbnb.com/experiences/1143839" },
+            { filter: "craft", icon: "perfume", cat: "공방", name: "한옥에서 나만의 향수 만들기",
+              text: "종로의 한옥에서 조향사와 향을 조합하고 나만의 향수를 만들어보세요.",
+              rating: "4.95", reviews: "1,426", url: "https://www.airbnb.com/experiences/1469132" },
+            { filter: "food", icon: "grill", cat: "먹거리", name: "현지 호스트와 한국 바비큐",
+              text: "호스트가 고른 중구의 돼지고기 바비큐 식당에서 식사하며 한국의 식문화를 알아보세요.",
+              rating: "4.90", reviews: "1,208", caution: "식당과 정확한 집결 장소는 예약 후 안내를 확인하세요.", url: "https://www.airbnb.com/experiences/4837890" },
+            { filter: "sports", icon: "baseball", cat: "스포츠", name: "잠실 야구 관람과 식사",
+              text: "식사와 함께 잠실 야구장에서 한국 프로야구의 응원 문화를 경험해보세요.",
+              rating: "4.89", reviews: "829", caution: "경기 일정과 시즌에 따라 참여 가능 여부가 달라집니다.", url: "https://www.airbnb.com/experiences/4217908" },
+            { filter: "culture", icon: "camera", cat: "문화 · 사진", name: "경복궁 한복 촬영 · 역사 산책",
+              text: "한복을 입고 역사 가이드 · 사진가와 경복궁을 걸으며 여행 사진을 남겨보세요.",
+              rating: "4.99", reviews: "569", url: "https://www.airbnb.com/experiences/5847008" },
+            { filter: "food", icon: "pot", cat: "요리", name: "현지 가정에서 김치 만들기",
+              text: "김치를 직접 만들고 한국식 식사를 즐기며 김치의 발효와 보관 방법을 배워보세요.",
+              rating: "5.00", reviews: "406", caution: "식이 제한과 알레르기는 예약 전에 호스트에게 확인하세요.", url: "https://www.airbnb.com/experiences/5724663" },
+            { filter: "food", icon: "pot", cat: "요리", name: "한옥에서 궁중요리 배우기",
+              text: "인사동 인근 한옥에서 갈비 등 전통 요리를 만들고 직접 차린 식사를 즐겨보세요.",
+              rating: "5.00", reviews: "264", caution: "식이 제한과 알레르기는 예약 전에 호스트에게 확인하세요.", url: "https://www.airbnb.com/experiences/5578128" },
+            { filter: "nature", icon: "mountain", cat: "자연 · 야외", name: "북한산 정상 등산",
+              text: "가이드와 북한산 정상 코스를 오르며 서울의 산과 풍경을 경험해보세요.",
+              rating: "4.98", reviews: "228", caution: "체력 · 날씨 · 등산화 등 준비물을 확인하세요. 가벼운 도심 산책과는 다릅니다.", url: "https://www.airbnb.com/experiences/3917857" }
+          ]
+        },
+        { type: "note", icon: "info", title: "꼭 읽어 주세요",
+          text: "서울 여행을 위한 추천 체험 모음입니다.\n에어비앤비 공식 순위가 아닙니다.\n평점 · 후기 수는 2026년 10월 31일 확인 기준입니다.\n최신 가격 · 일정 · 참여 조건은 각 체험 페이지에서 확인하세요.\n예약과 결제는 에어비앤비에서 진행됩니다." }
+      ]
+    },
+
     /* ---------- 체크아웃 ---------- */
     {
       id: "checkout",
@@ -1115,7 +1178,54 @@ const CONFIG = {
     "목적지가 비어 있을 때": { en: "If the destination is empty", ja: "目的地が空いているとき", zh: "目的地为空时", zht: "目的地為空時" },
     "우버에서 \"어디로 가시나요?\" 칸 누르기": { en: "In Uber, tap \"Where to?\"", ja: "Uberで「どこへ行きますか？」の欄を押す", zh: "在 Uber 中点击\"去哪儿？\"", zht: "在 Uber 中點選\"去哪兒？\"" },
     "칸을 길게 눌러 붙여넣기": { en: "Press and hold the field, then paste", ja: "欄を長押しして貼り付け", zh: "长按输入栏并粘贴", zht: "長按輸入欄並貼上" },
-    "검색 결과에서 숙소 주소 고르기": { en: "Pick the house address from the results", ja: "検索結果から宿の住所を選ぶ", zh: "在搜索结果中选择住处地址", zht: "在搜尋結果中選擇住處地址" }
+    "검색 결과에서 숙소 주소 고르기": { en: "Pick the house address from the results", ja: "検索結果から宿の住所を選ぶ", zh: "在搜索结果中选择住处地址", zht: "在搜尋結果中選擇住處地址" },
+    "서울 인기 체험 10선": { en: "10 Popular Seoul Experiences", ja: "ソウル人気体験10選", zh: "首尔人气体验10选", zht: "首爾人氣體驗10選" },
+    "에어비앤비 체험": { en: "Airbnb Experiences", ja: "Airbnb体験", zh: "爱彼迎体验", zht: "愛彼迎體驗" },
+    "서울 여행을 위한 추천 체험 모음입니다.": { en: "A collection of recommended experiences for your Seoul trip.", ja: "ソウル旅行のためのおすすめ体験をまとめました。", zh: "为您的首尔之旅精选的推荐体验。", zht: "為您的首爾之旅精選的推薦體驗。" },
+    "먹거리 · 요리": { en: "Food · Cooking", ja: "グルメ · 料理", zh: "美食 · 烹饪", zht: "美食 · 烹飪" },
+    "문화 · 산책": { en: "Culture · Walks", ja: "文化 · 散歩", zh: "文化 · 散步", zht: "文化 · 散步" },
+    "공방": { en: "Workshops", ja: "工房", zh: "手作工坊", zht: "手作工坊" },
+    "스포츠": { en: "Sports", ja: "スポーツ", zh: "体育", zht: "體育" },
+    "자연 · 야외": { en: "Nature · Outdoors", ja: "自然 · アウトドア", zh: "自然 · 户外", zht: "自然 · 戶外" },
+    "나이트라이프": { en: "Nightlife", ja: "ナイトライフ", zh: "夜生活", zht: "夜生活" },
+    "먹거리": { en: "Food", ja: "グルメ", zh: "美食", zht: "美食" },
+    "요리": { en: "Cooking", ja: "料理", zh: "烹饪", zht: "烹飪" },
+    "문화 · 사진": { en: "Culture · Photos", ja: "文化 · 写真", zh: "文化 · 摄影", zht: "文化 · 攝影" },
+    "광장시장 먹거리 투어": { en: "Gwangjang Market Food Tour", ja: "広蔵市場グルメツアー", zh: "广藏市场美食之旅", zht: "廣藏市場美食之旅" },
+    "현지 가이드와 광장시장을 둘러보며 한국 음식과 시장 문화를 경험해보세요.": { en: "Explore Gwangjang Market with a local guide and experience Korean food and market culture.", ja: "地元ガイドと広蔵市場を巡り、韓国の食と市場文化を体験しましょう。", zh: "跟随当地导游逛广藏市场，体验韩国美食与市场文化。", zht: "跟隨當地導遊逛廣藏市場，體驗韓國美食與市場文化。" },
+    "서울 펍 크롤": { en: "Seoul Pub Crawl", ja: "ソウル・パブクロール", zh: "首尔酒吧巡游", zht: "首爾酒吧巡遊" },
+    "홍대 또는 이태원의 바와 클럽을 함께 방문하며 다른 여행자들과 교류하는 체험입니다.": { en: "Visit bars and clubs in Hongdae or Itaewon and meet other travelers.", ja: "弘大または梨泰院のバーやクラブを巡り、ほかの旅行者と交流する体験です。", zh: "一起探访弘大或梨泰院的酒吧和俱乐部，与其他旅行者交流。", zht: "一起探訪弘大或梨泰院的酒吧和俱樂部，與其他旅行者交流。" },
+    "19세 이상 참여 가능. 신분증과 날짜별 집결 장소를 확인하세요.": { en: "Ages 19 and up. Check your ID and the meeting point for your date.", ja: "19歳以上のみ参加可能。身分証と日付ごとの集合場所を確認してください。", zh: "仅限19岁以上参加。请确认身份证件及各日期的集合地点。", zht: "僅限19歲以上參加。請確認身份證件及各日期的集合地點。" },
+    "서울 야간 골목 · 성곽 산책": { en: "Seoul Night Alleys · City Wall Walk", ja: "ソウル夜の路地 · 城壁散歩", zh: "首尔夜间小巷 · 城墙散步", zht: "首爾夜間小巷 · 城牆散步" },
+    "혜화와 이화동을 지나 낙산공원과 한양도성의 야경을 즐기는 가이드 산책입니다.": { en: "A guided walk through Hyehwa and Ihwa-dong to enjoy night views of Naksan Park and the Seoul City Wall.", ja: "恵化と梨花洞を通り、駱山公園と漢陽都城の夜景を楽しむガイド付き散歩です。", zh: "导游带领穿过惠化和梨花洞，欣赏骆山公园与汉阳都城夜景的散步。", zht: "導遊帶領穿過惠化和梨花洞，欣賞駱山公園與漢陽都城夜景的散步。" },
+    "오르막과 걷는 구간이 있습니다.": { en: "Includes uphill sections and walking.", ja: "上り坂と歩く区間があります。", zh: "途中有上坡和步行路段。", zht: "途中有上坡和步行路段。" },
+    "한옥에서 나만의 향수 만들기": { en: "Make Your Own Perfume in a Hanok", ja: "韓屋で自分だけの香水づくり", zh: "在韩屋制作专属香水", zht: "在韓屋製作專屬香水" },
+    "종로의 한옥에서 조향사와 향을 조합하고 나만의 향수를 만들어보세요.": { en: "Blend scents with a perfumer in a Jongno hanok and create your own perfume.", ja: "鍾路の韓屋で調香師と香りを組み合わせ、自分だけの香水を作りましょう。", zh: "在钟路的韩屋里与调香师一起调配香气，制作属于自己的香水。", zht: "在鍾路的韓屋裡與調香師一起調配香氣，製作屬於自己的香水。" },
+    "현지 호스트와 한국 바비큐": { en: "Korean BBQ with a Local Host", ja: "地元ホストと韓国焼肉", zh: "与当地房东享用韩式烤肉", zht: "與當地房東享用韓式烤肉" },
+    "호스트가 고른 중구의 돼지고기 바비큐 식당에서 식사하며 한국의 식문화를 알아보세요.": { en: "Eat at a pork BBQ restaurant in Jung-gu chosen by the host and learn about Korean food culture.", ja: "ホストが選んだ中区の豚焼肉店で食事をしながら、韓国の食文化を知りましょう。", zh: "在房东挑选的中区猪肉烤肉店用餐，了解韩国饮食文化。", zht: "在房東挑選的中區豬肉烤肉店用餐，瞭解韓國飲食文化。" },
+    "식당과 정확한 집결 장소는 예약 후 안내를 확인하세요.": { en: "Check the restaurant and exact meeting point in the details sent after booking.", ja: "お店と正確な集合場所は予約後の案内を確認してください。", zh: "餐厅和具体集合地点请查看预订后的通知。", zht: "餐廳和具體集合地點請檢視預訂後的通知。" },
+    "잠실 야구 관람과 식사": { en: "Jamsil Baseball Game and Meal", ja: "蚕室で野球観戦と食事", zh: "蚕室棒球观赛与用餐", zht: "蠶室棒球觀賽與用餐" },
+    "식사와 함께 잠실 야구장에서 한국 프로야구의 응원 문화를 경험해보세요.": { en: "Enjoy a meal and experience Korean pro baseball cheering culture at Jamsil Baseball Stadium.", ja: "食事とともに、蚕室野球場で韓国プロ野球の応援文化を体験しましょう。", zh: "边用餐边在蚕室棒球场体验韩国职业棒球的应援文化。", zht: "邊用餐邊在蠶室棒球場體驗韓國職業棒球的應援文化。" },
+    "경기 일정과 시즌에 따라 참여 가능 여부가 달라집니다.": { en: "Availability depends on the game schedule and season.", ja: "試合日程やシーズンによって参加できるかどうかが変わります。", zh: "能否参加取决于比赛日程和赛季。", zht: "能否參加取決於比賽日程和賽季。" },
+    "경복궁 한복 촬영 · 역사 산책": { en: "Gyeongbokgung Hanbok Photos · History Walk", ja: "景福宮 韓服撮影 · 歴史散歩", zh: "景福宫韩服拍摄 · 历史散步", zht: "景福宮韓服拍攝 · 歷史散步" },
+    "한복을 입고 역사 가이드 · 사진가와 경복궁을 걸으며 여행 사진을 남겨보세요.": { en: "Wear hanbok and walk through Gyeongbokgung with a history guide and photographer to capture travel photos.", ja: "韓服を着て、歴史ガイド · カメラマンと景福宮を歩きながら旅の写真を残しましょう。", zh: "穿上韩服，与历史导游 · 摄影师漫步景福宫，留下旅行照片。", zht: "穿上韓服，與歷史導遊 · 攝影師漫步景福宮，留下旅行照片。" },
+    "현지 가정에서 김치 만들기": { en: "Make Kimchi in a Local Home", ja: "地元の家庭でキムチづくり", zh: "在当地家庭制作泡菜", zht: "在當地家庭製作泡菜" },
+    "김치를 직접 만들고 한국식 식사를 즐기며 김치의 발효와 보관 방법을 배워보세요.": { en: "Make kimchi yourself, enjoy a Korean meal, and learn how kimchi is fermented and stored.", ja: "キムチを自分で作り、韓国式の食事を楽しみながら、キムチの発酵と保存方法を学びましょう。", zh: "亲手制作泡菜，享用韩式餐点，学习泡菜的发酵与保存方法。", zht: "親手製作泡菜，享用韓式餐點，學習泡菜的發酵與儲存方法。" },
+    "식이 제한과 알레르기는 예약 전에 호스트에게 확인하세요.": { en: "Check dietary restrictions and allergies with the host before booking.", ja: "食事制限やアレルギーは予約前にホストに確認してください。", zh: "饮食限制和过敏问题请在预订前向房东确认。", zht: "飲食限制和過敏問題請在預訂前向房東確認。" },
+    "한옥에서 궁중요리 배우기": { en: "Learn Royal Court Cuisine in a Hanok", ja: "韓屋で宮廷料理を学ぶ", zh: "在韩屋学做宫廷料理", zht: "在韓屋學做宮廷料理" },
+    "인사동 인근 한옥에서 갈비 등 전통 요리를 만들고 직접 차린 식사를 즐겨보세요.": { en: "Cook traditional dishes such as galbi in a hanok near Insadong and enjoy the meal you made.", ja: "仁寺洞近くの韓屋でカルビなどの伝統料理を作り、自分で用意した食事を楽しみましょう。", zh: "在仁寺洞附近的韩屋制作排骨等传统料理，享用亲手准备的餐点。", zht: "在仁寺洞附近的韓屋製作排骨等傳統料理，享用親手準備的餐點。" },
+    "북한산 정상 등산": { en: "Bukhansan Summit Hike", ja: "北漢山 山頂登山", zh: "北汉山登顶", zht: "北漢山登頂" },
+    "가이드와 북한산 정상 코스를 오르며 서울의 산과 풍경을 경험해보세요.": { en: "Climb the Bukhansan summit trail with a guide and experience Seoul's mountains and views.", ja: "ガイドと北漢山の山頂コースを登り、ソウルの山と景色を体験しましょう。", zh: "跟随导游攀登北汉山山顶路线，体验首尔的山岳与风景。", zht: "跟隨導遊攀登北漢山山頂路線，體驗首爾的山嶽與風景。" },
+    "체력 · 날씨 · 등산화 등 준비물을 확인하세요. 가벼운 도심 산책과는 다릅니다.": { en: "Check your fitness, the weather, and gear such as hiking boots. This is not a light city walk.", ja: "体力 · 天気 · 登山靴などの準備を確認してください。気軽な街歩きとは違います。", zh: "请确认体力、天气及登山鞋等装备。这不是轻松的城市散步。", zht: "請確認體力、天氣及登山鞋等裝備。這不是輕鬆的城市散步。" },
+    "후기 {count}건": { en: "{count} reviews", ja: "口コミ{count}件", zh: "{count} 条评价", zht: "{count} 條評價" },
+    "평점 · 후기 수 확인일: {date}": { en: "Ratings and review counts checked: {date}", ja: "評価 · 口コミ数の確認日：{date}", zh: "评分 · 评价数确认日期：{date}", zht: "評分 · 評價數確認日期：{date}" },
+    "2026년 10월 31일": { en: "October 31, 2026", ja: "2026年10月31日", zh: "2026年10月31日", zht: "2026年10月31日" },
+    "에어비앤비에서 보기": { en: "View on Airbnb", ja: "Airbnbで見る", zh: "在爱彼迎查看", zht: "在愛彼迎檢視" },
+    "꼭 읽어 주세요": { en: "Please note", ja: "必ずお読みください", zh: "请务必阅读", zht: "請務必閱讀" },
+    "에어비앤비 공식 순위가 아닙니다.": { en: "This is not an official Airbnb ranking.", ja: "Airbnbの公式ランキングではありません。", zh: "这不是爱彼迎的官方排名。", zht: "這不是愛彼迎的官方排名。" },
+    "평점 · 후기 수는 2026년 10월 31일 확인 기준입니다.": { en: "Ratings and review counts as checked on October 31, 2026.", ja: "評価 · 口コミ数は2026年10月31日に確認した時点のものです。", zh: "评分 · 评价数以2026年10月31日确认时为准。", zht: "評分 · 評價數以2026年10月31日確認時為準。" },
+    "최신 가격 · 일정 · 참여 조건은 각 체험 페이지에서 확인하세요.": { en: "Check each experience page for the latest prices, schedules, and requirements.", ja: "最新の料金 · 日程 · 参加条件は各体験ページで確認してください。", zh: "最新价格 · 日程 · 参加条件请在各体验页面确认。", zht: "最新價格 · 日程 · 參加條件請在各體驗頁面確認。" },
+    "예약과 결제는 에어비앤비에서 진행됩니다.": { en: "Booking and payment are made on Airbnb.", ja: "予約と決済はAirbnbで行います。", zh: "预订和付款均在爱彼迎上进行。", zht: "預訂和付款均在愛彼迎上進行。" }
   }
 };
 
@@ -1580,6 +1690,26 @@ const CONFIG = {
   .place-meta { display: grid; grid-template-columns: auto 1fr; gap: 4px 12px; margin-top: 12px; padding: 12px 14px; background: var(--ivory); border-radius: 12px; }
   .place-meta dt { font-size: 16px; font-weight: 700; color: var(--accent); }
   .place-meta dd { font-size: 16px; }
+  .tour-chips { position: sticky; top: 0; z-index: 3; margin: 0 -16px 12px; padding: 8px 16px; background: var(--ivory); }
+  .tour-chips .map-chip[aria-pressed="true"] { background: var(--frame); border-color: var(--frame); }
+  .tour-list { display: grid; gap: 14px; }
+  .tour { padding: 16px; border-radius: 18px; background: #ffffff; border: 1px solid var(--line); box-shadow: 0 6px 18px rgba(59, 42, 32, 0.06); }
+  .tour[hidden] { display: none; }
+  .tour-top { display: flex; align-items: center; gap: 12px; }
+  .tour-head { flex: 1; min-width: 0; }
+  .tour-cat { display: flex; align-items: center; gap: 8px; font-size: 14px; font-weight: 700; color: var(--accent); }
+  .tour-no { font-family: Georgia, "Noto Serif", serif; font-size: 15px; color: var(--brass); letter-spacing: 0.04em; }
+  .tour-name { font-size: 19px; font-weight: 800; color: var(--frame); line-height: 1.35; margin-top: 2px; }
+  .tour-rating { display: flex; align-items: center; gap: 6px; margin-top: 12px; font-size: 16px; color: var(--muted); }
+  .tour-rating b { color: var(--frame); font-weight: 800; }
+  .tour-rating > span:last-child { padding-left: 6px; border-left: 1px solid var(--line); }
+  .tour-star { width: 17px; height: 17px; color: var(--brass); }
+  .tour-star svg { fill: currentColor; }
+  .tour-text { font-size: 16px; margin-top: 8px; }
+  .tour-caution { display: flex; gap: 8px; align-items: flex-start; margin-top: 10px; padding: 10px 12px; border-radius: 12px; background: var(--soft); font-size: 15px; color: var(--frame); }
+  .tour-caution .ico { flex: none; width: 18px; height: 18px; margin-top: 2px; color: var(--accent); }
+  .tour-btn { margin-top: 14px; min-height: 48px; }
+  .tour-checked { margin-top: 14px; font-size: 14px; color: var(--muted); text-align: center; }
   .place-btns { display: grid; gap: 8px; margin-top: 14px; }
   .place-btns.two { grid-template-columns: 2fr 1fr; }
   .place-btns .btn { min-height: 48px; padding: 10px 12px; }
@@ -1820,7 +1950,14 @@ const CONFIG = {
     sheet: '<path d="M5 4h11l3 3v13H5z"/><path d="M16 4v3h3"/><path d="M8 11c1.5-1 2.5 1 4 0s2.5 1 4 0M8 15c1.5-1 2.5 1 4 0s2.5 1 4 0"/>',
     gate: '<path d="M2.5 9.3c2.6.4 4.7-.4 6.2-1.8h6.6c1.5 1.4 3.6 2.2 6.2 1.8"/><path d="M8.2 7.5l1.1-2.2h5.4l1.1 2.2"/><path d="M7 9.6v2.4M12 9.6v2.4M17 9.6v2.4"/><path d="M3.5 12h17v8h-17z"/><path d="M9.6 20v-3.4a2.4 2.4 0 0 1 4.8 0V20"/>',
     ddp: '<path d="M1.5 17c.4-2.6 2.2-5 5.2-6.6 3.4-1.8 7.6-2.2 11-.9 2.4.9 4 2.6 4.8 4.7.4 1.1-.3 2.8-1.9 2.8z"/><path d="M4.2 13.6c3.6-2.1 8.4-2.9 12.6-1.9"/><path d="M2.6 15.4c4.6-1.6 10.6-2 16.6-.9"/><path d="M1 20h22"/><path d="M6 17v3M18 17v3"/>',
-    tree: '<path d="M12 3a5 5 0 0 1 5 5 4 4 0 0 1 1 7.5H6A4 4 0 0 1 7 8a5 5 0 0 1 5-5z"/><path d="M12 15.5V21M9 21h6"/>'
+    tree: '<path d="M12 3a5 5 0 0 1 5 5 4 4 0 0 1 1 7.5H6A4 4 0 0 1 7 8a5 5 0 0 1 5-5z"/><path d="M12 15.5V21M9 21h6"/>',
+    star: '<path d="M12 3.2l2.7 5.5 6 .9-4.35 4.25 1.03 6L12 17l-5.38 2.85 1.03-6L3.3 9.6l6-.9z"/>',
+    glass: '<path d="M5 4h14l-7 8z"/><path d="M12 12v8M8 20h8"/><path d="M8 7.5h8"/>',
+    perfume: '<rect x="6" y="9" width="12" height="12" rx="3"/><path d="M10 9V6h4v3"/><path d="M9 3.5h6"/><path d="M9.5 15h5"/>',
+    grill: '<path d="M4 10h16a8 8 0 0 1-16 0z"/><path d="M8 18l-2 3M16 18l2 3"/><path d="M9 3c-1 1.5 1 2.5 0 4M12 3c-1 1.5 1 2.5 0 4M15 3c-1 1.5 1 2.5 0 4"/>',
+    baseball: '<circle cx="12" cy="12" r="9"/><path d="M6.5 5c2 2 3 4.5 3 7s-1 5-3 7"/><path d="M17.5 5c-2 2-3 4.5-3 7s1 5 3 7"/>',
+    camera: '<path d="M3 8h4l2-3h6l2 3h4v12H3z"/><circle cx="12" cy="13.5" r="3.6"/>',
+    mountain: '<path d="M2.5 20l7-12 4 6.5 2.5-3.5 5.5 9z"/><path d="M7.6 11.3l1.9 1.4 1.6-1.6"/>'
   };
   function icon(name, cls) {
     if (!name || !ICONS[name]) return null;
@@ -2201,6 +2338,63 @@ const CONFIG = {
           if (it.phone) add(btns, linkButton(T.placeCall, "tel:" + String(it.phone).replace(/[^0-9+]/g, ""), "btn-line"));
         }
       });
+      return wrap;
+    },
+
+    /* 서울 인기 체험: 위쪽 고르기 단추 + 카드 */
+    tours: function (b) {
+      var wrap = el("div", "tours");
+      var filters = b.filters || [];
+      var items = b.items || [];
+      var cardsEl = [];
+      if (filters.length) {
+        var chips = add(wrap, el("div", "map-chips tour-chips"));
+        chips.setAttribute("role", "group");
+        var current = "all";
+        var btns = [];
+        filters.forEach(function (f) {
+          if (f.key !== "all" && !items.some(function (it) { return it.filter === f.key; })) return;
+          var bt = add(chips, el("button", "map-chip", f.label));
+          bt.type = "button";
+          bt.setAttribute("aria-pressed", f.key === current ? "true" : "false");
+          bt.addEventListener("click", function () {
+            current = f.key;
+            btns.forEach(function (x) { x[1].setAttribute("aria-pressed", x[0] === current ? "true" : "false"); });
+            cardsEl.forEach(function (x) { x[1].hidden = !(current === "all" || x[0] === current); });
+          });
+          btns.push([f.key, bt]);
+        });
+      }
+      var list = add(wrap, el("div", "tour-list"));
+      items.forEach(function (it, i) {
+        var c = add(list, el("article", "tour"));
+        var top = add(c, el("div", "tour-top"));
+        addIcon(top, it.icon || "star", "ico-bubble");
+        var hd = add(top, el("div", "tour-head"));
+        var meta = add(hd, el("div", "tour-cat"));
+        add(meta, el("span", "tour-no", (i < 9 ? "0" : "") + (i + 1)));
+        add(meta, el("span", "", it.cat));
+        add(hd, el("h3", "tour-name", it.name));
+        if (it.rating) {
+          var rt = add(c, el("div", "tour-rating"));
+          addIcon(rt, "star", "tour-star");
+          add(rt, el("b", "", it.rating));
+          if (it.reviews) add(rt, el("span", "", tr("후기 {count}건").replace("{count}", it.reviews)));
+        }
+        if (it.text) add(c, el("p", "tour-text", it.text));
+        if (it.caution) {
+          var cu = add(c, el("p", "tour-caution"));
+          addIcon(cu, "info");
+          add(cu, el("span", "", it.caution));
+        }
+        if (it.url) {
+          var a = add(c, linkButton("에어비앤비에서 보기", it.url, "btn-primary tour-btn"));
+          a.target = "_blank";
+          a.rel = "noopener";
+        }
+        cardsEl.push([it.filter, c]);
+      });
+      if (b.checked) add(wrap, el("p", "tour-checked", tr("평점 · 후기 수 확인일: {date}").replace("{date}", tr(b.checked))));
       return wrap;
     },
 
