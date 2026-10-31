@@ -1,6 +1,6 @@
 /* 스테이 비트윈 안내 앱: 한 번 연 화면과 사진을 휴대폰에 저장해 두고,
    인터넷이 끊겨도 안내를 볼 수 있게 합니다. 이 파일은 고치지 않으셔도 됩니다. */
-var CACHE = "stay-between-v1";
+var CACHE = "stay-between-v2";
 self.addEventListener("install", function (e) {
   e.waitUntil(caches.open(CACHE).then(function (c) { return c.addAll(["./", "./index.html", "./manifest.json"]); }).catch(function () {}));
   self.skipWaiting();
