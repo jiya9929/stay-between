@@ -105,6 +105,15 @@ const CONFIG = {
     { to: "contact", icon: "chat",     label: "호스트 연락" } // 연락하기
   ],
 
+  /* 첫 화면 바로가기 바로 아래 큰 카드. 탭을 고르지 않아도 늘 보입니다 */
+  toursBanner: {
+    show: true, // 보여 줄지. 숨기려면 false
+    to: "tours", // 누르면 갈 화면 id
+    title: "서울 인기 체험 10선", // 카드 제목
+    sub: "에어비앤비 체험", // 제목 아래 작은 글자
+    icons: ["bowl", "gate", "camera", "baseball", "mountain", "glass"] // 카드 오른쪽에 나란히 보이는 작은 그림들
+  },
+
   /* 첫 화면 "우리 동네" 사진 칸. "체크인 후" 탭 메뉴의 맨 아래에 나옵니다 */
   neighborhood: {
     show: true, // 보여 줄지. 숨기려면 false
@@ -636,7 +645,7 @@ const CONFIG = {
        text 소개, rating 평점, reviews 후기 수, caution 주의사항 (없으면 빼세요), url 에어비앤비 주소 */
     {
       id: "tours",
-      group: "after", // 첫 화면 묶음
+      group: "home", // "home" 은 탭이 아니라 첫 화면 바로가기 아래 큰 카드(toursBanner)에서 들어갑니다
       icon: "star", // 메뉴 버튼 그림
       label: "서울 인기 체험 10선", // 메뉴 버튼 글자
       sub: "에어비앤비 체험", // 메뉴 버튼 작은 글자
@@ -1399,6 +1408,24 @@ const CONFIG = {
     -webkit-tap-highlight-color: transparent;
   }
   .quick-btn:active { transform: scale(0.98); }
+  .tours-banner {
+    display: flex; align-items: center; gap: 14px;
+    margin: -6px 0 22px; padding: 16px 16px 16px 14px; min-height: 76px;
+    border-radius: 18px; text-decoration: none;
+    background: linear-gradient(120deg, var(--brass) 0%, #B38A57 100%);
+    color: var(--frame);
+    box-shadow: 0 8px 22px rgba(120, 84, 48, 0.25);
+    -webkit-tap-highlight-color: transparent;
+  }
+  .tours-banner:active { transform: scale(0.98); }
+  .tb-star { flex: none; width: 48px; height: 48px; padding: 11px; border-radius: 24px; background: var(--frame); color: #F3D9A8; }
+  .tb-star svg { fill: currentColor; }
+  .tb-text { flex: 1; min-width: 0; display: flex; flex-direction: column; gap: 4px; }
+  .tb-title { font-size: 19px; font-weight: 800; line-height: 1.3; }
+  .tb-sub { display: flex; align-items: center; flex-wrap: wrap; gap: 4px 10px; font-size: 14px; font-weight: 700; color: rgba(59, 42, 32, 0.78); }
+  .tb-icons { display: inline-flex; gap: 6px; }
+  .tb-icons .ico { width: 17px; height: 17px; color: var(--frame); opacity: 0.8; }
+  .tb-go { flex: none; width: 22px; height: 22px; color: var(--frame); }
   .quick-btn .ico { width: 26px; height: 26px; color: var(--brass); margin-bottom: 6px; }
   .quick-main { font-size: 17px; font-weight: 800; line-height: 1.3; }
   .quick-sub { font-size: 16px; color: rgba(255, 248, 238, 0.72); line-height: 1.3; margin-top: 2px; }
@@ -2731,6 +2758,23 @@ const CONFIG = {
     qw.addEventListener("click", function () { copyText(String(C.wifiPassword)); });
     if (findScreen("taxi")) quickItem("a", T.quickTaxi, T.quickTaxiSub, "car").href = "#taxi";
     quickItem("a", T.quickContact, T.quickContactSub, "chat").href = C.contactUrl;
+
+    /* 서울 인기 체험 큰 카드 */
+    var TB = C.toursBanner || {};
+    if (TB.show !== false && TB.to && findScreen(TB.to)) {
+      var tb = add(sheet, el("a", "tours-banner"));
+      tb.href = "#" + TB.to;
+      addIcon(tb, "star", "tb-star");
+      var tbt = add(tb, el("span", "tb-text"));
+      add(tbt, el("span", "tb-title", TB.title));
+      var tbs = add(tbt, el("span", "tb-sub"));
+      if (TB.sub) add(tbs, el("span", "", TB.sub));
+      if ((TB.icons || []).length) {
+        var tbi = add(tbs, el("span", "tb-icons"));
+        TB.icons.forEach(function (n) { addIcon(tbi, n); });
+      }
+      addIcon(tb, "chevron", "tb-go");
+    }
 
     /* 우리 동네 */
     var NB = C.neighborhood || {};
