@@ -105,6 +105,19 @@ const CONFIG = {
     { to: "contact", icon: "chat",     label: "호스트 연락" } // 연락하기
   ],
 
+  /* 검색. 첫 화면 바로가기 위 검색 칸을 누르면 검색 화면이 열립니다 */
+  search: {
+    show: true, // 검색 칸을 보여 줄지. 숨기려면 false
+    chips: ["난방", "세탁", "짐 보관", "쓰레기", "주차", "체크아웃", "커피", "와이파이", "비데", "택시"], // 검색 화면의 자주 찾는 말 단추
+    aliases: { // 손님이 이렇게 써도 찾아지게. 왼쪽 말을 오른쪽 말로도 찾습니다
+      "비번": "비밀번호", "pw": "비밀번호", "password": "비밀번호", "wifi": "와이파이", "와파": "와이파이",
+      "우버": "택시", "uber": "taxi", "에어컨": "냉방", "보일러": "난방", "온수": "보일러", "뜨거운물": "보일러",
+      "빨래": "세탁", "건조": "건조기", "분리수거": "재활용", "짐": "짐 보관", "퇴실": "체크아웃", "입실": "체크인",
+      "도어락": "현관", "현관 비번": "현관", "공항": "공항", "지하철": "지하철", "맛집": "식사", "카페": "커피", "빵": "소금빵",
+      "수건": "수건", "드라이기": "드라이어", "헤어드라이어": "드라이어", "티비": "TV", "넷플릭스": "TV", "응급": "긴급", "병원": "긴급"
+    }
+  },
+
   /* 첫 화면 바로가기 바로 아래 큰 카드. 탭을 고르지 않아도 늘 보입니다 */
   toursBanner: {
     show: true, // 보여 줄지. 숨기려면 false
@@ -161,6 +174,11 @@ const CONFIG = {
     foldOpen: "펼쳐 보기", // 접힌 칸 오른쪽 글자
     foldClose: "접기", // 펼친 칸 오른쪽 글자
     back: "메뉴로 돌아가기", // 각 화면의 돌아가기 버튼 글자
+    searchTitle: "무엇을 찾으세요?", // 검색 화면 제목, 첫 화면 검색 칸 글자
+    searchHint: "예: 난방, 세탁, 짐 보관, 비번", // 검색 칸 안의 흐린 글자
+    searchChipsTitle: "자주 찾는 것", // 자주 찾는 말 단추 위 제목
+    searchNone: "찾는 결과가 없어요. 다른 말로 찾아보거나 호스트에게 메시지를 보내 주세요.", // 결과가 없을 때
+    searchCount: "{count}개 찾았어요", // 결과 개수
     checkinTimeLabel: "들어오실 때", // 체크인 시각 위 작은 글자
     checkoutTimeLabel: "나가실 때", // 체크아웃 시각 위 작은 글자
     checkinTimeSuffix: "부터", // 체크인 시각 뒤에 붙는 글자
@@ -1256,7 +1274,14 @@ const CONFIG = {
     "한국 가정집에서 즐기는 전통 김치 만들기": { en: "Traditional Kimchi Making in a Local Korean Home", ja: "韓国人ホストの自宅で伝統的なキムチづくり体験", zh: "在韩国本地家庭体验传统泡菜制作", zht: "在韓國當地人家中學做傳統泡菜" },
     "현지인의 한옥에서 즐기는 서울 왕실 요리 쿠킹 클래스": { en: "Royal Seoul Cooking Class in Local's Hanok Home", ja: "地元の韓屋でロイヤルソウル料理のクッキング教室", zh: "在当地人的韩屋中学做皇家首尔菜", zht: "在當地的韓屋家中學習皇家首爾烹飪課程" },
     "북한산 국립공원 정상 코스": { en: "Bukhansan National Park: The Summit Course", ja: "北漢山国立公園の山頂コースをハイキング", zh: "北汉山国立公园：登顶之旅", zht: "北漢山國立公園：山頂課程" },
-    "사진 · 체험 이름: 에어비앤비": { en: "Photo · Listing name: Airbnb", ja: "写真 · 体験名：Airbnb", zh: "照片 · 体验名称：爱彼迎", zht: "照片 · 體驗名稱：Airbnb" }
+    "사진 · 체험 이름: 에어비앤비": { en: "Photo · Listing name: Airbnb", ja: "写真 · 体験名：Airbnb", zh: "照片 · 体验名称：爱彼迎", zht: "照片 · 體驗名稱：Airbnb" },
+    "무엇을 찾으세요?": { en: "What are you looking for?", ja: "何をお探しですか？", zh: "您在找什么？", zht: "您在找什麼？" },
+    "예: 난방, 세탁, 짐 보관, 비번": { en: "e.g. heating, laundry, luggage, password", ja: "例：暖房、洗濯、荷物預かり、パスワード", zh: "例如：暖气、洗衣、行李寄存、密码", zht: "例如：暖氣、洗衣、行李寄放、密碼" },
+    "자주 찾는 것": { en: "Popular searches", ja: "よく探されるもの", zh: "常用搜索", zht: "常用搜尋" },
+    "찾는 결과가 없어요. 다른 말로 찾아보거나 호스트에게 메시지를 보내 주세요.": { en: "No results. Try another word, or message your hosts.", ja: "見つかりませんでした。別の言葉で探すか、ホストにメッセージを送ってください。", zh: "没有找到结果。请换个词搜索，或给房东留言。", zht: "沒有找到結果。請換個詞搜尋，或傳訊息給房東。" },
+    "{count}개 찾았어요": { en: "{count} results", ja: "{count}件見つかりました", zh: "找到 {count} 个结果", zht: "找到 {count} 個結果" },
+    "난방": { en: "Heating", ja: "暖房", zh: "暖气", zht: "暖氣" },
+    "커피": { en: "Coffee", ja: "コーヒー", zh: "咖啡", zht: "咖啡" }
   }
 };
 
@@ -1598,6 +1623,46 @@ const CONFIG = {
   .tile-menu.feature .menu-sub { color: rgba(255, 248, 238, 0.75); }
   .tile-menu.feature .go { position: static; margin-left: auto; color: var(--brass); }
   .lattice-foot { font-size: 16px; color: var(--muted); text-align: center; margin: 18px 0 6px; }
+
+  /* ===== 검색 ===== */
+  .search-entry {
+    display: flex; align-items: center; gap: 10px;
+    min-height: 52px; margin: 0 0 12px; padding: 10px 16px;
+    border-radius: 999px; background: #ffffff; border: 1px solid var(--line);
+    color: var(--muted); text-decoration: none;
+    box-shadow: 0 4px 14px rgba(59, 42, 32, 0.06);
+  }
+  .search-entry .ico { width: 22px; height: 22px; color: var(--accent); flex: none; }
+  .search-entry-tx { font-size: 16px; font-weight: 700; color: var(--frame); flex: none; }
+  .search-entry-hint { font-size: 14px; color: var(--muted); white-space: nowrap; overflow: hidden; text-overflow: ellipsis; min-width: 0; }
+  .search-page { padding: 20px 16px 28px; }
+  .search-title { font-size: 24px; font-weight: 800; color: var(--frame); margin-bottom: 14px; }
+  .search-box {
+    display: flex; align-items: center; gap: 10px;
+    min-height: 54px; padding: 4px 8px 4px 16px;
+    border-radius: 16px; background: #ffffff; border: 1.5px solid var(--accent);
+  }
+  .search-box > .ico { width: 22px; height: 22px; color: var(--accent); flex: none; }
+  .search-input { flex: 1; min-width: 0; border: none; outline: none; background: transparent; font-family: inherit; font-size: 17px; color: var(--frame); padding: 10px 0; -webkit-appearance: none; appearance: none; }
+  .search-input::-webkit-search-cancel-button { display: none; }
+  .search-input::placeholder { color: #A99787; }
+  .search-clear { flex: none; width: 40px; height: 40px; border: none; border-radius: 20px; background: var(--soft); color: var(--muted); font-size: 22px; line-height: 1; cursor: pointer; }
+  .search-chips-title { margin: 22px 0 10px; font-size: 15px; font-weight: 700; color: var(--muted); }
+  .search-chips { display: flex; flex-wrap: wrap; gap: 8px; }
+  .search-chip { min-height: 40px; padding: 8px 14px; border-radius: 999px; border: 1px solid var(--line); background: #ffffff; color: var(--frame); font-family: inherit; font-size: 15px; font-weight: 700; cursor: pointer; }
+  .search-chip:active { background: var(--soft); }
+  .search-info { margin: 16px 2px 10px; font-size: 15px; color: var(--muted); }
+  .search-info:empty { display: none; }
+  .search-results { display: grid; gap: 10px; }
+  .search-item { display: flex; align-items: center; gap: 12px; padding: 12px 12px 12px 12px; border-radius: 16px; background: #ffffff; border: 1px solid var(--line); text-decoration: none; color: inherit; }
+  .search-item:active { background: var(--soft); }
+  .search-item .ico-bubble { flex: none; }
+  .search-item-tx { flex: 1; min-width: 0; display: flex; flex-direction: column; gap: 2px; }
+  .search-item-title { font-size: 17px; font-weight: 800; color: var(--frame); line-height: 1.35; }
+  .search-item-sub { font-size: 15px; color: var(--ink, #3B2A20); opacity: 0.8; line-height: 1.4; }
+  .search-item-where { font-size: 13px; font-weight: 700; color: var(--accent); }
+  .search-go { flex: none; width: 20px; height: 20px; color: var(--accent); }
+  .search-contact { margin-top: 4px; }
 
   /* ===== 상세 화면 ===== */
   .topbar {
@@ -2424,6 +2489,7 @@ const CONFIG = {
       var list = add(wrap, el("div", "tour-list"));
       items.forEach(function (it, i) {
         var c = add(list, el("article", "tour" + (it.photo ? " has-photo" : "")));
+        c.setAttribute("data-place", String(i));
         if (it.photo) {
           var ph = add(c, el("a", "tour-photo"));
           ph.href = it.url || "#";
@@ -2789,6 +2855,7 @@ const CONFIG = {
 
     /* 바로가기 세 개 */
     if (C.clockShow || C.weatherShow) startClock(sheet);
+    searchEntry(sheet);
     if (C.saveToHome !== false) saveBanner(sheet);
     var quick = add(sheet, el("div", "quick"));
     function quickItem(tag, main, sub, ic) {
@@ -2926,6 +2993,170 @@ const CONFIG = {
     drawGrid();
 
     if (T.homeFoot) add(sheet, el("p", "lattice-foot", T.homeFoot));
+  }
+
+  /* ---------- 검색 ---------- */
+  var SEARCH = C.search || {};
+  var searchQuery = "";
+  var SKIP_KEYS = { type: 1, icon: 1, url: 1, photo: 1, outside: 1, outsidePos: 1, img: 1, src: 1, map: 1, phone: 1, lat: 1, lng: 1, cat: 1, filter: 1, to: 1, show: 1, start: 1, key: 1, group: 1, id: 1, marks: 1, small: 1, checked: 1 };
+  function collectText(v, out) {
+    if (typeof v === "string") { out.push(v); return out; }
+    if (Array.isArray(v)) { v.forEach(function (x) { collectText(x, out); }); return out; }
+    if (v && typeof v === "object") Object.keys(v).forEach(function (k) { if (!SKIP_KEYS[k]) collectText(v[k], out); });
+    return out;
+  }
+  function norm(x) { return String(x || "").toLowerCase().replace(/[\s·・,.!?()（）"'“”、。:：\-]/g, ""); }
+  function bothLang(list) {
+    var out = [];
+    list.forEach(function (t) { out.push(t); var t2 = tr(t); if (t2 !== t) out.push(t2); });
+    return out;
+  }
+  var searchIndex = null, searchIndexLang = null;
+  function buildIndex() {
+    if (searchIndex && searchIndexLang === LANG) return searchIndex;
+    var idx = [];
+    SCREENS.forEach(function (sc) {
+      if (!sc || !sc.id) return;
+      var head = [sc.label, sc.title, sc.sub, sc.intro].filter(Boolean);
+      var body = [];
+      var k = 0;
+      (sc.blocks || []).forEach(function (b) {
+        if (!b) return;
+        var list = b.type === "places" ? b.items : b.type === "tours" ? b.items : null;
+        if (list) {
+          var bodyRest = {}; Object.keys(b).forEach(function (key) { if (key !== "items") bodyRest[key] = b[key]; });
+          collectText(bodyRest, body);
+          (list || []).forEach(function (it, i) {
+            var n = b.type === "tours" ? i : k++;
+            var t = collectText(it, []);
+            idx.push({ to: sc.id + ":" + n, icon: it.icon || (b.type === "tours" ? "star" : sc.icon), title: it.name, sub: sc.title || sc.label, desc: it.tags || it.cat || it.text || "", head: bothLang([it.name, it.en || "", it.airbnbName || ""]), body: bothLang(t), rank: 1 });
+          });
+        } else collectText(b, body);
+      });
+      idx.push({ to: sc.id, icon: sc.icon, title: sc.title || sc.label, sub: sc.sub || "", desc: sc.sub || sc.intro || "", head: bothLang(head), body: bothLang(body), rank: 0 });
+    });
+    searchIndex = idx.map(function (r) {
+      r.nHead = r.head.map(norm).join("|");
+      r.nBody = r.body.map(norm).join("|");
+      return r;
+    });
+    searchIndexLang = LANG;
+    return searchIndex;
+  }
+  function searchTerms(q) {
+    var terms = [norm(q)];
+    var al = SEARCH.aliases || {};
+    Object.keys(al).forEach(function (k) {
+      var nk = norm(k);
+      if (nk && (terms[0] === nk || (nk.length >= 2 && terms[0].indexOf(nk) !== -1))) terms.push(norm(al[k]), norm(tr(al[k])));
+    });
+    return terms.filter(function (t, i, a) { return t && a.indexOf(t) === i; });
+  }
+  function runSearch(q) {
+    var terms = searchTerms(q);
+    if (!terms.length) return [];
+    var res = [];
+    buildIndex().forEach(function (r) {
+      var score = 0, hit = null;
+      terms.forEach(function (t, ti) {
+        var w = ti === 0 ? 1 : 0.8;
+        if (r.nHead.indexOf(t) !== -1) score = Math.max(score, 10 * w);
+        else if (r.nBody.indexOf(t) !== -1) score = Math.max(score, 4 * w);
+        if (!hit && r.nBody.indexOf(t) !== -1) {
+          for (var i = 0; i < r.body.length; i++) {
+            if (norm(r.body[i]).indexOf(t) !== -1) { hit = r.body[i]; break; }
+          }
+        }
+      });
+      if (hit && score >= 10) hit = null; // 제목에서 찾았으면 아래 글은 소개로
+      if (score) res.push({ r: r, score: score - (r.rank ? 0 : 0.5), hit: hit });
+    });
+    res.sort(function (a, b) { return b.score - a.score; });
+    return res.slice(0, 20);
+  }
+  function snippet(text) {
+    var t = tr(String(text)).replace(/\s+/g, " ");
+    return t.length > 60 ? t.slice(0, 58) + "…" : t;
+  }
+  function renderSearch() {
+    var bar = add(app, el("div", "topbar"));
+    var top = add(bar, el("a", "btn btn-plain", T.back));
+    top.href = "#home";
+    if ((C.languages || []).length > 1) add(bar, langSwitch("lang-bar"));
+
+    var wrap = add(app, el("div", "search-page"));
+    add(wrap, el("h1", "search-title", T.searchTitle));
+    var box = add(wrap, el("label", "search-box"));
+    addIcon(box, "search");
+    var input = add(box, el("input", "search-input"));
+    input.type = "search";
+    input.placeholder = tr(T.searchHint);
+    input.setAttribute("aria-label", tr(T.searchTitle));
+    input.setAttribute("enterkeyhint", "search");
+    input.autocomplete = "off";
+    input.value = searchQuery;
+    var clear = add(box, el("button", "search-clear"));
+    clear.type = "button";
+    clear.setAttribute("aria-label", "clear");
+    clear.textContent = "×";
+
+    var chipsWrap = add(wrap, el("div", "search-chips-wrap"));
+    if ((SEARCH.chips || []).length) {
+      add(chipsWrap, el("div", "search-chips-title", T.searchChipsTitle));
+      var chips = add(chipsWrap, el("div", "search-chips"));
+      SEARCH.chips.forEach(function (c) {
+        var b = add(chips, el("button", "search-chip", c));
+        b.type = "button";
+        b.addEventListener("click", function () { input.value = tr(c); update(); });
+      });
+    }
+    var info = add(wrap, el("p", "search-info"));
+    var list = add(wrap, el("div", "search-results"));
+
+    function update() {
+      searchQuery = input.value;
+      var q = input.value.trim();
+      clear.style.visibility = q ? "visible" : "hidden";
+      list.innerHTML = "";
+      info.textContent = "";
+      chipsWrap.style.display = q ? "none" : "";
+      if (!q) return;
+      var res = runSearch(q);
+      if (!res.length) {
+        info.textContent = tr(T.searchNone);
+        var c = add(list, linkButton(T.quickContact, C.contactUrl, "btn-line"));
+        c.classList.add("search-contact");
+        return;
+      }
+      info.textContent = tr(T.searchCount).replace("{count}", res.length);
+      res.forEach(function (x) {
+        var a = add(list, el("a", "search-item"));
+        a.href = "#" + x.r.to;
+        addIcon(a, x.r.icon || "search", "ico-bubble");
+        var tx = add(a, el("span", "search-item-tx"));
+        add(tx, el("span", "search-item-title", x.r.title));
+        var subTxt = snippet(x.hit || x.r.desc || "");
+        if (subTxt) {
+          var sEl = add(tx, el("span", "search-item-sub"));
+          sEl.textContent = subTxt;
+        }
+        if (x.r.rank) add(tx, el("span", "search-item-where", x.r.sub));
+        addIcon(a, "chevron", "search-go");
+      });
+    }
+    input.addEventListener("input", update);
+    input.addEventListener("keydown", function (e) { if (e.key === "Enter") input.blur(); });
+    clear.addEventListener("click", function () { input.value = ""; update(); input.focus(); });
+    update();
+    setTimeout(function () { if (!searchQuery) try { input.focus(); } catch (e) {} }, 80);
+  }
+  function searchEntry(parent) {
+    if (SEARCH.show === false) return;
+    var a = add(parent, el("a", "search-entry"));
+    a.href = "#search";
+    addIcon(a, "search");
+    add(a, el("span", "search-entry-tx", T.searchTitle));
+    add(a, el("span", "search-entry-hint", T.searchHint));
   }
 
   /* ---------- 상세 화면 ---------- */
@@ -3070,8 +3301,8 @@ const CONFIG = {
     app.innerHTML = "";
     app.classList.remove("no-photo");
     if (clockTimer) { clearInterval(clockTimer); clockTimer = null; }
-    if (s) renderScreen(s); else renderHome();
-    drawTabbar(s ? s.id : "home");
+    if (s) renderScreen(s); else if (parts[0] === "search" && SEARCH.show !== false) renderSearch(); else renderHome();
+    drawTabbar(s ? s.id : parts[0] === "search" ? "search" : "home");
     window.scrollTo(0, keepScroll === true ? y0 : 0);
     if (keepScroll !== true && s && parts[1]) {
       var target = app.querySelector('[data-place="' + parts[1] + '"]');
